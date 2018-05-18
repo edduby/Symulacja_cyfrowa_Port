@@ -1,0 +1,40 @@
+digraph "main"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="main",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Symulacja",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$symulacja_8h.html#a0e6f7b9ec172d7e193bd1ec1c5173da4"];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Zrodlo::generacjaStatku",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_zrodlo.html#a789dbec31e8e1d8d56124f335114388a"];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Statek::dodanieStatku",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_statek.html#a2fadfeb1727e74eff8c70abca62a5c29",tooltip="Dodanie statku (obiekt przyjmuje wartosci) "];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Statek::losowanieStatku",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_statek.html#a779dc2d86b04179db2e39828835d0ae5",tooltip="Losowanie statku. "];
+  Node2 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="Statek::czyMozeWplynac",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_statek.html#a8706546cad1537044d4a4f43b777dfd0",tooltip="Funkcja sprawdzajaca czy mozemy wplynac do kanalu. "];
+  Node2 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="Port::czyMogeWplynac",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_port.html#a3dbce335ee656437c81b748db01c3747",tooltip="Funkcja sprawdzajaca czy statek moze wplynac do portu. "];
+  Node2 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="Kolejka::statekZajmujeMiejsce",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_kolejka.html#a0403be58c8d387d8f69f7056e9cf1a3b",tooltip="Zajecie miejsca. "];
+  Node2 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="Kolejka::czyPusta",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_kolejka.html#aebf38c073da63548bb7b6b684e7dbe38"];
+  Node2 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="Kolejka::wyborStatkuDoZwolnienia",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_kolejka.html#adbc66a89911409f3f82ee284901f1ea4"];
+  Node10 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="Kolejka::statekZwalniaMiejsce",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_kolejka.html#a38befd95214f5f4e2f2bd12c0a7b8029",tooltip="Zwolnienie miejsca przez statek. "];
+  Node2 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="Statek::wyborKanalu",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_statek.html#ab9d3849213bb73a1ca8420f7b3167c96",tooltip="Funkcja zwracajaca kanal do ktorego mozemy wplynac. "];
+  Node2 -> Node13 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="Kanal::zajecieKanalu",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_kanal.html#a5b527f8de60f870a04e0fd6b4aba7646",tooltip="Zajecie kanalu. "];
+  Node2 -> Node14 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="Port::zajecieNarzedzi",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_port.html#a4f044da41e3acbd9f57f25d9565fca9c",tooltip="Funkcja dla zajmujaca narzedzia dla konkretnego statku. "];
+  Node2 -> Node15 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="Kanal::zwolnienieKanalu",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_kanal.html#ac034ee3d8a597d5a11fd232491a8a90a",tooltip="Zwolnienie kanalu. "];
+  Node2 -> Node16 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="Port::zwolnienieNarzedzi",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_port.html#aa3d0fd7d499550750f0bea64bdd401f0",tooltip="Funkcja dla zwalnia narzedzia dla konkretnego statku. "];
+  Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

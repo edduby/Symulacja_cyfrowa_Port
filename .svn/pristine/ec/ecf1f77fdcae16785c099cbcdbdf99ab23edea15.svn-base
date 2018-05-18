@@ -1,0 +1,24 @@
+#ifndef PORT_H
+#define PORT_H
+#include <iostream>
+#include <cstdlib>
+
+class statek{
+
+public:
+	int miejsceJachty;
+	int dzwigi;
+	int tasmociagi;
+	int rampy;
+	int prowadnice;
+
+
+
+private:
+
+
+
+};
+
+using namespace std;
+#endif

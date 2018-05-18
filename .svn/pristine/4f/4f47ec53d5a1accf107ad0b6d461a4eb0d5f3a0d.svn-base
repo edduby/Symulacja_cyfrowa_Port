@@ -1,0 +1,30 @@
+/********************************************//**
+* \file symulacja.h
+* \brief Definicja obiektu symulacja
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+#ifndef SYMULACJA_H
+#define SYMULACJA_H
+using namespace std;
+#ifndef SIMULACJA_H
+#define SIMULACJA_H
+/////////////////////////////////////////////////
+/*! \brief Symulacja.
+*
+*	Implementacja Symulacji.
+*
+*/
+
+int czasGlobalny; 
+
+void Symulacja()
+{
+//miejsce symulacji
+
+}
+
+
+/////////////////////////////////////////////////
+//***********************************************
+#endif /*SYMULACJA_H*/  

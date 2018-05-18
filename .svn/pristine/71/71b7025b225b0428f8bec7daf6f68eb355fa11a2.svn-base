@@ -1,0 +1,51 @@
+
+#include "kolejka.h"
+
+
+
+void kolejka::statekZajmujeMiejsce(int numer2){
+	statek *nowy = new statek;
+	//nowy->numer = numer2;
+	if (pierwszy == NULL)
+	{
+		pierwszy = nowy;
+		pierwszy->nastepny = nowy;
+		pierwszy->poprzedni = nowy;
+		return;
+	}
+	if (pierwszy->typ<nowy->typ)
+	{
+		statek *temp, *temp2;
+		temp = pierwszy; temp2 = pierwszy;
+		while (temp->typ<nowy->typ){
+			if (temp->nastepny == pierwszy)
+			{
+				temp->nastepny = nowy;
+				pierwszy->poprzedni = nowy;
+				nowy->nastepny = pierwszy;
+				return;
+			}
+			temp2 = temp;
+			temp = temp->nastepny;
+		}
+		temp2->nastepny = nowy;
+		nowy->nastepny = temp;
+		nowy->poprzedni = temp2;
+		temp->poprzedni = nowy;
+
+	}
+	else{
+		statek *temp;
+		temp = pierwszy;
+		while (temp->nastepny != pierwszy)
+		{
+			temp = temp->nastepny;
+		}
+		temp->nastepny = nowy;
+		nowy->nastepny = pierwszy;
+		nowy->poprzedni = temp;
+		pierwszy->poprzedni = nowy;
+		pierwszy = nowy;
+	}
+}
+

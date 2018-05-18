@@ -1,0 +1,15 @@
+#include "sc.h"
+#include "symulacja.h"
+
+int main()
+{
+
+	int a;
+	statek proba;
+	a= proba.losowanieStatku();
+	cout << a;
+
+
+
+
+}

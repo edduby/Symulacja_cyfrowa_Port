@@ -1,0 +1,41 @@
+#ifndef PORT_H
+#define PORT_H
+#include <iostream>
+/********************************************//**
+* \file port.h
+* \brief Definicja portu
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+
+#include <cstdlib>
+#include "port.h"
+#include "statek.h"
+/////////////////////////////////////////////////
+/*! \brief Port.
+*
+*	Implementacja Portu.
+*
+*/
+class Port{
+
+public:
+	int miejsceJachty;//!< Miejsca na jachty.
+	int dzwigi;//!< Ilosc dzwigow.
+	int tasmociagi;//!< Ilosc tasmociagow.
+	int rampy;//!< Ilosc ramp.
+	int prowadnice;//!< Ilosc prowadnic
+	void zajecieNarzedzi(Statek wybrany);
+	bool czyMogeWplynac(Statek wybrany);
+	Port();
+
+private:
+
+
+
+};
+
+using namespace std;
+/////////////////////////////////////////////////
+//***********************************************
+#endif /*PORT_H*/ 

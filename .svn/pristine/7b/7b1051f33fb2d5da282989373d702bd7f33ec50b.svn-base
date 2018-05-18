@@ -1,0 +1,25 @@
+#ifndef KOLEJKA_H
+#define KOLEJKA_H
+#include <iostream>
+#include <cstdlib>
+#include "Statek.h"
+
+using namespace std;
+class kolejka{
+public:
+	statek *pierwszy;
+
+
+	kolejka(){}
+	~kolejka(){}
+
+
+	void statekZajmujeMiejsce();
+	void statekZwalniaMiejsce();
+
+private:
+
+
+};
+
+#endif

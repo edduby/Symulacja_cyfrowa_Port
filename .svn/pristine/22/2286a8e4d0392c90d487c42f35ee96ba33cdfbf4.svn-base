@@ -1,0 +1,47 @@
+/********************************************//**
+* \file statek.cpp
+* \brief Definicja obiektu statek
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+#ifndef STATEK_H
+#define STATEK_H
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+/////////////////////////////////////////////////
+/*! \brief Statek.
+*
+*	Implementacja statku.
+*
+*/
+class Statek{
+
+
+
+public: 
+
+	//! Parametry statku
+	Statek *nastepny;
+	Statek *poprzedni;
+	int typ;
+	int masa;
+	int ppz; //prawdopodobienstwo ponownego zaladunku
+	int zanurzenie;
+	int czasOb;
+	int wymaganeDzwigi;
+	int wymaganeTasmociagi;
+	int wymaganeRampy;
+	int wymaganeProwadnice;
+	friend class kolejka;
+
+
+	int losowanieStatku();
+	void dodanieStatku(int typ2);
+private:
+
+};
+
+/////////////////////////////////////////////////
+//***********************************************
+#end if /*STATEK_H*/ 

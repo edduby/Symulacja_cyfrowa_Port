@@ -1,0 +1,87 @@
+/********************************************//**
+* \file statek.cpp
+* \brief Definicja obiektu statek
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+#ifndef STATEK_H
+#define STATEK_H
+class Kanal;
+/////////////////////////////////////////////////
+/*! \brief Statek.
+*
+*	Implementacja statku.
+*
+*/
+class Statek{
+
+
+
+public: 
+
+	friend class Kolejka;
+	friend class pojawienieSieStatku;
+	friend class wyplyniecieZToru;
+	friend class konczenieObslugi;
+	friend class opuszczenieToru;
+	friend void Symulacja();
+
+
+	Statek *nastepny;//<! Wskaznik na nastepny
+	Statek *poprzedni;//<! Wskaznik na poprzedni
+	int typ;//<! Typ statku
+	double masa;//<! Masa statku
+	bool ppz; //<! Prawdopodobienstwo ponownego zaladunku
+	double zanurzenie;//<! Zanurzenie statku
+	double czasOb;//<! Czas obslugi
+	int wymaganeDzwigi;//<! Dzwigi
+	int wymaganeTasmociagi;//<! Tasmociagi
+	int wymaganeRampy;//<! Rampy
+	int wymaganeProwadnice;//<! Prowadnice
+	double czasMagazynowy; //<! Czas w ktorym statek przebywa na zaladunku i rozladunku
+	double czasPrzybycia;
+	static Kolejka qPort;				//!< Priority queue.
+	static Kolejka qMorze;				//!< Ordinary queue.
+	
+	//pojawienieSieStatku
+	//czas
+
+
+
+	friend class kolejka;//<! Zaprzyjaznienie 
+
+
+	//!Konstruktor
+	Statek() :
+		nastepny(NULL),
+		poprzedni(NULL),
+		typ(0),
+		masa(0),
+		ppz(NULL),
+		zanurzenie(0),
+		czasOb(0),
+		wymaganeDzwigi(0),
+		wymaganeTasmociagi(0),
+		wymaganeRampy(0),
+		wymaganeProwadnice(0),
+		czasMagazynowy(0),
+		czasPrzybycia(0)
+	{}
+
+
+	int losowanieStatku();//!< Losowanie statku
+	void dodanieStatku();//!< Dodanie statku (obiekt przyjmuje wartosci)
+	bool czyMozeWplynac(Kanal &pierwszy, Kanal &drugi, Kanal &trzeci, Kanal &czwarty);//!< Funkcja sprawdzajaca czy mozemy wplynac do kanalu
+	Kanal wyborKanalu(Kanal &pierwszy, Kanal &drugi, Kanal &trzeci, Kanal &czwarty);//!< Funkcja zwracajaca kanal do ktorego mozemy wplynac
+
+
+private:
+
+
+
+
+};
+
+/////////////////////////////////////////////////
+//***********************************************
+#endif /*STATEK_H*/ 

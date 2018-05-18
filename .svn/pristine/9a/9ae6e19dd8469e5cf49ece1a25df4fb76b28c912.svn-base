@@ -1,0 +1,395 @@
+/********************************************//**
+* \file symulacja.h
+* \brief Definicja obiektu symulacja
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+
+#include "sc.h"
+#ifndef SIMULACJA_H
+#define SIMULACJA_H
+/////////////////////////////////////////////////
+/*! \brief Symulacja.
+*
+*	Implementacja Symulacji.
+*
+*/
+
+int czasGlobalny; 
+//void sprawdzamDostepnoscZajmuje(Port pierwszy, Kanal wybrany){
+
+//	if (pierwszy.czyMogeWplynac || (wybrany.zajetosc == 0)){
+	//}
+	//else
+	//{
+	//}
+
+//}
+
+
+
+
+void Symulacja()
+{
+
+
+
+
+	//////! Stworzenie kolejek
+	//Kolejka jeden;
+
+	////
+	////	//! Stworzenie statku
+	//Statek *pierwszy2;
+	//	Statek *pierwszy3;
+	//	Statek *pierwszy4;
+	//	Statek *pierwszy5;
+	//	Statek *pierwszy6;
+	//	Statek *pierwszy7;
+
+	//	Zrodlo generacja;
+	//	pierwszy2 = generacja.generacjaStatku();
+	//	pierwszy3 = generacja.generacjaStatku();
+	//	pierwszy4 = generacja.generacjaStatku();
+	//	pierwszy5 = generacja.generacjaStatku();
+	//	pierwszy6 = generacja.generacjaStatku();
+	//	pierwszy7 = generacja.generacjaStatku();
+	//	//jezeli narzedzia sa zajete i kanal  to wedruje do kolejki
+	//	
+	//	
+	//	
+	//	//umieszczam w kolejce
+	//	while (1){
+	//		
+	//		jeden.statekZajmujeMiejsce(pierwszy2);
+	//		jeden.sprIlewKolejce();
+	//		jeden.statekZajmujeMiejsce(pierwszy3);
+	//		jeden.sprIlewKolejce();
+	//		jeden.statekZajmujeMiejsce(pierwszy4);
+	//		jeden.sprIlewKolejce();
+	//		jeden.statekZajmujeMiejsce(pierwszy5);
+	//		jeden.sprIlewKolejce();
+	//		jeden.statekZajmujeMiejsce(pierwszy6);
+	//		jeden.sprIlewKolejce();
+	//		jeden.statekZajmujeMiejsce(pierwszy7);
+	//		jeden.sprIlewKolejce();
+
+	//		Kanal KanalJeden(8, 1); KanalJeden.zajecieKanaluDo(pierwszy2);
+	//		Kanal KanalDwa(12, 2); KanalDwa.zajecieKanaluDo(pierwszy3);
+	//		Kanal KanalTrzy(20, 3);
+	//		Kanal KanalCztery(25, 4);
+	//		Port MojPort;
+
+	//		Statek *temp;
+	//		if (jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort)){
+	//			temp = jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort);
+	//			jeden.sprIlewKolejce();
+	//			jeden.statekZwalniaMiejsce(jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort));
+	//			jeden.sprIlewKolejce();
+	//			cout << "wybralem statek" << temp->typ;
+	//			jeden.sprIlewKolejce();
+	//		}
+	//		if (jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort)){
+	//			temp = jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort);
+	//			jeden.sprIlewKolejce();
+	//			jeden.statekZwalniaMiejsce(jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort));
+	//			jeden.sprIlewKolejce();
+	//			cout << "wybralem statek" << temp->typ;
+	//			jeden.sprIlewKolejce();
+	//		}
+	//		if (jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort)){
+	//			temp = jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort);
+	//			jeden.sprIlewKolejce();
+	//			jeden.statekZwalniaMiejsce(jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort));
+	//			jeden.sprIlewKolejce();
+	//			cout << "wybralem statek" << temp->typ;
+	//			jeden.sprIlewKolejce();
+	//		}
+	//		if (jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort)){
+	//			temp = jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort);
+	//			jeden.sprIlewKolejce();
+	//			jeden.statekZwalniaMiejsce(jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort));
+	//			jeden.sprIlewKolejce();
+	//			cout << "wybralem statek" << temp->typ;
+	//			jeden.sprIlewKolejce();
+	//		}
+	//		if (jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort)){
+	//			temp = jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort);
+	//			jeden.sprIlewKolejce();
+	//			jeden.statekZwalniaMiejsce(jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort));
+	//			jeden.sprIlewKolejce();
+	//			cout << "wybralem statek" << temp->typ;
+	//			jeden.sprIlewKolejce();
+	//		}
+	//		if (jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort)){
+	//			temp = jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort);
+	//			jeden.sprIlewKolejce();
+	//			jeden.statekZwalniaMiejsce(jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort));
+	//			jeden.sprIlewKolejce();
+	//			cout << "wybralem statek" << temp->typ;
+	//			jeden.sprIlewKolejce();
+	//		}
+	//		if (jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort)){
+	//			temp = jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort);
+	//			jeden.sprIlewKolejce();
+	//			jeden.statekZwalniaMiejsce(jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort));
+	//			jeden.sprIlewKolejce();
+	//			cout << "wybralem statek" << temp->typ;
+	//			jeden.sprIlewKolejce();
+	//		}
+	//	}
+	//		jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort);
+	//		jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort);
+	//		jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort);
+	//		jeden.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort);
+
+
+
+
+
+
+
+
+
+
+
+
+
+//	int seeds[4];
+//
+//	int seed = 1234, idx = 0;
+//
+//	for (int i = 0; i < 4 * 10000; i++)
+//	{
+//		Uniform(seed);
+//
+//		if (!(i % 10000))
+//		{
+//			seeds[idx++] = seed;
+//			std::cout << seed << endl;
+//		}
+//	}
+//
+//	
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+////miejsce symulacji
+//	Kanal temp; // zmnienna pommocnicza
+//
+//	//>!Stworzenie portu
+//
+//	Port MojPort;
+//	//cout << "port     " << MojPort.dzwigi << "port     ";
+//
+//
+//
+//	//! Sworzenie kanalow
+//	Kanal KanalJeden(8,1);
+//	Kanal KanalDwa(12,2);
+//	Kanal KanalTrzy(20,3);
+//	Kanal KanalCztery(25,4);
+//
+//	//! Stworzenie kolejek
+//	Kolejka DoKanaluDoPortu;
+//	Kolejka DoKanaluZPortu;
+//
+//	//! Stworzenie statku
+//	Statek *pierwszy;
+//	Zrodlo generacja;
+//	pierwszy = generacja.generacjaStatku();
+//	
+//	//jezeli narzedzia sa zajete i kanal  to wedruje do kolejki
+//	if ((pierwszy->czyMozeWplynac(KanalJeden, KanalDwa, KanalTrzy, KanalCztery) && MojPort.czyMogeWplynac(pierwszy))==0)
+//	{
+//		//umieszczam w kolejce
+//		DoKanaluDoPortu.statekZajmujeMiejsce(pierwszy);
+//
+//	}
+//
+//	//usuwam z kolejki wkladam do toru jesli moge
+//	if (DoKanaluDoPortu.czyPusta() != NULL){//sprawdzam czy kolejka jest pusta
+//		cout << "sprawdza czy koeljka jest pusta" << endl;
+//		Statek *tmp = DoKanaluDoPortu.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort); //funkcja zwraca wskaznik na NULL jezeli zaden ze statkow w kolejce nie moze wplynac do kanalu 
+//		if (tmp != NULL)//jezeli jest statek ktory w kolejce nadaje sie do usuniecia usuwamy go z kolejki 
+//		{
+//			cout << "kolejka nie jest pusta" << endl;
+//			DoKanaluDoPortu.statekZwalniaMiejsce(tmp);
+//
+//			temp = pierwszy->wyborKanalu(KanalJeden, KanalDwa, KanalTrzy, KanalCztery);
+//			temp.zajecieKanaluZ(pierwszy);
+//			MojPort.zajecieNarzedzi(pierwszy);
+//
+//			//Po wplynieciu do portu zwalniam kanal
+//			
+//		}
+//
+//
+//	}
+//
+//	else{
+//		cout << "koeljak jest pusta" << endl;
+//		//wprowadzam do odpowiedniego kanalu i zajmuje narzedzia 
+//		temp = pierwszy->wyborKanalu(KanalJeden, KanalDwa, KanalTrzy, KanalCztery);
+//		temp.zajecieKanaluZ(pierwszy);
+//		MojPort.zajecieNarzedzi(pierwszy);
+//		
+//	}
+//	temp.zwolnienieKanalu();//zwalniamy kanal statku ktory zostal obslugiwany 
+//
+//	//obluga portu sprawdzammy ktore maja koniec obslugi 
+//	//wprowadzam do kolejki "z portu do morza"
+//
+//	if (pierwszy->czyMozeWplynac(KanalJeden, KanalDwa, KanalTrzy, KanalCztery)){//wyplywanie z portu 
+//		temp = pierwszy->wyborKanalu(KanalJeden, KanalDwa, KanalTrzy, KanalCztery);
+//		temp.zajecieKanaluZ(pierwszy);
+//		MojPort.zwolnienieNarzedzi(pierwszy);
+//	
+//	}
+//	else
+//	{
+//		DoKanaluZPortu.statekZajmujeMiejsce(pierwszy);
+//	}
+//
+//	if (DoKanaluZPortu.czyPusta() != NULL){//sprawdzam czy kolejka jest pusta
+//
+//		Statek *tmp = DoKanaluZPortu.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort);
+//		if (tmp != NULL)//jezeli jest statek ktory w kolejce nadaje sie do usuniecia usuwamy go z kolejki
+//		{
+//			DoKanaluZPortu.statekZwalniaMiejsce(tmp);
+//
+//			temp = pierwszy->wyborKanalu(KanalJeden, KanalDwa, KanalTrzy, KanalCztery);
+//			temp.zajecieKanaluZ(pierwszy);
+//			MojPort.zwolnienieNarzedzi(pierwszy);
+//		}
+//
+//
+//	}
+//
+//	
+//	
+//DoKanaluZPortu.statekZajmujeMiejsce(pierwszy);
+//
+//	Statek *tmp = DoKanaluZPortu.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort);
+//	if (tmp != NULL)
+//	{
+//	DoKanaluZPortu.statekZwalniaMiejsce(tmp);
+//
+//		temp = pierwszy->wyborKanalu(KanalJeden, KanalDwa, KanalTrzy, KanalCztery);
+//		temp.zajecieKanaluZ(pierwszy);
+//		MojPort.zwolnienieNarzedzi(pierwszy);
+//	}
+//
+//
+//
+//
+//
+//
+//	cout << "Pierwszy statek zostaje przeprowadzony i usuniety" << endl;
+//	//Zwalniamy kanal i usuwamy statek
+//	//gdzie temp to bedzie kanal ktoremu skonczyla sie obsluga
+//	temp.zwolnienieKanalu();
+//	delete pierwszy;
+//	 //po wplynieciu dio kanalau zwalniam zasoby 
+//	//usuwam statek jak wyszedl z kanalu
+//	
+//
+//
+//
+//
+//	//usuwanie z kolejki i funkcje dzieki ktorej bede sprawdzal wolne zasoby i jesli sa wolne opuszczam kolejke zajmuuje kanal 
+//	//1 stworzenie obiektow 
+//	//-portu
+//	//- kanalow
+//	//- statkow
+//
+//	/*-Statek tworzymy okreslony statek
+//	+ sprawdzamy czy sa wolne narzedzia
+//	+ sprawdzamy czy sa wolne tory
+//	- jezeli nie wrzucamy go do kolejki
+//	- sprawdzamy czy zwolnilo sie miejsce
+//	- jezeli jest wiecej statkow to jezeeli nie ma wystarczajaco duzo narzedzi sprawdzamy inne statki(wybieramy statek ktory->wsp masa i ...)
+//	- jezeli moze sa narzedzial wplywamy i zajmujemu tor oraz narzedzia(tor ktory wybiuerzemy mamy wybrac jak najlepiej tzn.pod wzgledem masy i szybkosci kt)
+//
+//	- zostajemy obslugiwani
+//	- sprawdzamy czy tory sa wolne zeby wrocic jezeli nie zajmujemy kolejke.
+//
+//
+//
+//	rozladowac , nalDOWAC PONOWNIE
+//	*/
+////	srand(time(NULL));
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+	double lambda_1 = 0.99;
+	double lambda_2 = 1.5;
+	Event * current = NULL;
+	int M = 10;
+	int seeden = 2311487;
+	for (int m = 0; m < 1; m++)
+	{
+		//---------------------------------------
+		// Initialize model:
+		//---------------------------------------
+
+		symulacja::sim_clock = 0.0; 
+		symulacja::agenda.schedule(new pojawienieSieStatku(lambda_1,seeden));
+		//---------------------------------------
+		// Transient phase:
+		//---------------------------------------
+
+		while (symulacja::i < 10000.)
+		{
+
+			current = symulacja::agenda.remove_first();
+
+			symulacja::sim_clock = current->event_time;
+		//	cout << symulacja::sim_clock << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n";
+
+			current->execute();
+
+			delete current;
+		}
+
+
+
+	//	reset_statistics()
+	}
+	symulacja::wynik = symulacja::czas / symulacja::i;
+	cout<<"Sredni czas przybycia wszystkich statkow:" << symulacja::wynik<<"h"<<endl;
+	cout << "Liczba statkow:" << symulacja::i<<endl;
+	//cout << "  typ:" << symulacja::typ1 << "  typ:" << symulacja::typ2 << "  typ:" << symulacja::typ3 << "  typ:" << symulacja::typ4 << "  typ:" << symulacja::typ5 << "  typ:" << symulacja::typ6 <<endl;
+	//cout << "  typ:" << symulacja::typ1t << "  typ:" << symulacja::typ2t << "  typ:" << symulacja::typ3t << "  typ:" << symulacja::typ4t << "  typ:" << symulacja::typ5t << "  typ:" << symulacja::typ6t << endl;
+	cout << "  Sredni czas 1 :" << symulacja::typ1t / symulacja::typ1 << endl << "  Sredni czas 2 :" << symulacja::typ2t / symulacja::typ1 << endl << "  Sredni czas 3 :" << symulacja::typ3t / symulacja::typ1 << endl << "   Sredni czas 4:" << symulacja::typ4t / symulacja::typ1 << endl << "   Sredni czas 5:" << symulacja::typ5t / symulacja::typ1 <<endl<< "   Sredni czas 6:" << symulacja::typ6t / symulacja::typ1 << endl;
+	
+
+
+
+	system("pause");
+
+
+
+
+}
+
+
+/////////////////////////////////////////////////
+//***********************************************
+#endif /*SYMULACJA_H*/  

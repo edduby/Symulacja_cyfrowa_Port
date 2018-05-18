@@ -1,0 +1,550 @@
+/********************************************//**
+* \file   events.cpp
+* \brief  Time events.
+* \author Maciej Maciejewski
+* \date   2015-04-15
+***********************************************/
+#include "sc.h"
+using namespace symulacja;
+/////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////pojawienie sie statku///////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+pojawienieSieStatku::pojawienieSieStatku(double in_lambda, int in_seed): Event(sim_clock + Exponential(in_lambda, in_seed))
+{
+	lambda = in_lambda;
+	seed = in_seed;
+}
+void pojawienieSieStatku::execute(){
+	//cerr << ":///////////////////////////////pojawienie sie staku////////////////////////////////////\n";
+	Kanal *temp=NULL;
+	double czasTemp=0;
+	//cerr << "lambda:" << lambda << " seed:" << seed;
+	agenda.schedule(new pojawienieSieStatku((lambda), seed));
+	//cerr << "czas:" << sim_clock<< endl;
+	Statek *StatekPlynie;
+	Statek *tempStatek;
+	Zrodlo Generator; 
+	StatekPlynie = Generator.generacjaStatku();
+	StatekPlynie->czasPrzybycia = sim_clock;
+//	cout << "czas: " << sim_clock<<endl;
+	
+	
+
+	model_stats.open("./stats.csv", std::ios_base::out | std::ios_base::app);
+	model_stats << Exponential(lambda, seed) << endl;
+	model_stats.close();
+
+
+
+	//cout << "typ wplywajacy:" << StatekPlynie->typ << endl;
+	qMorze.statekZajmujeMiejsce(StatekPlynie);
+	
+
+//	cerr << "qmorze" << endl << endl;
+//	cerr << "qmorze" << endl<<endl;
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	tempStatek = qMorze.wyborStatkuDoZwolnienia(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4, NowyPort);
+	if (tempStatek)
+	{
+	//cout <<"typTATKU PO IFIE:"<< tempStatek->typ<<endl<<endl;
+		temp = tempStatek->wyborKanalu(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4);
+		//cerr << "Statek wybral kanal:" << temp->numer << "\n";
+		NowyPort.zajecieNarzedzi(tempStatek);
+		//qMorze.sprIlewKolejce();
+
+		qMorze.statekZwalniaMiejsce(tempStatek);
+
+		//qMorze.sprIlewKolejce();
+		if (temp->numer == KanalJeden1.numer){
+			KanalJeden1.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 1;
+		}
+		else if  (temp->numer == KanalDwa2.numer){
+			KanalDwa2.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 2;
+		}
+		else if (temp->numer == KanalTrzy3.numer){
+			KanalTrzy3.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 3;
+		}
+		else if (temp->numer == KanalCztery4.numer){
+			KanalCztery4.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 4;
+		}
+		//////////////////////////////=============czas===============//////////////////////////////
+		
+		i++;
+
+
+	//cout << "SIM:CLOCK:" << sim_clock << " CZASPRZYBYCUA:" << (tempStatek->czasPrzybycia) <<"    oczekiwania:  "<< sim_clock - (tempStatek->czasPrzybycia)<<"typ:"<<tempStatek->typ << endl;
+		//cout<<sim_clock - (tempStatek->czasPrzybycia)<<"typ:"<<tempStatek->typ<<endl<<"masa"<< tempStatek->masa <<endl<<endl;
+
+		//cout<< czas / i<<endl<<endl<<endl;
+
+
+
+		
+		tempStatek->czazOczekiwania(sim_clock - tempStatek->czasPrzybycia);
+
+		czasTemp = tempStatek->czasPrzeplyniecia(temp);
+
+	//cerr << "Czas przelyniecia statku:" << czasTemp << "\n";
+		agenda.schedule(new wyplyniecieZToru(czasTemp, tempStatek));
+		//////////////////////////////=============czas===============//////////////////////////////
+
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////wyplyniecie z toru//////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+wyplyniecieZToru::wyplyniecieZToru(double in_czas,Statek* in_StatekPlynie) : Event(sim_clock + in_czas){
+	czas = in_czas;
+	StatekPlynie = in_StatekPlynie;
+}
+void wyplyniecieZToru::execute(){
+	double czasTemp = 0;
+	Statek *tempStatek;
+	//cerr << ":///////////////////////////////Wyplyniecie z toru do portu///////////////////////////////////\n";
+	
+	czasTemp = StatekPlynie->czasRozladunku();
+	agenda.schedule(new konczenieObslugi(czasTemp, StatekPlynie));
+	
+
+//	cerr << "WYPLYNIECIE Z TORU\n";
+
+	Kanal *temp = NULL;
+	//-- --------------------------------zwolnic trzeba kanal
+//	cerr << "Kanal" << (StatekPlynie->wKtorymTorzeJestem(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4, StatekPlynie)).numer<<endl ;
+
+	temp=&(StatekPlynie->wKtorymTorzeJestem(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4,StatekPlynie));
+	if (temp->numer == KanalJeden1.numer){
+		KanalJeden1.zwolnienieKanalu(StatekPlynie);
+	}
+	else if (temp->numer == KanalDwa2.numer){
+		KanalDwa2.zwolnienieKanalu(StatekPlynie);
+	}
+	else if (temp->numer == KanalTrzy3.numer){
+		KanalTrzy3.zwolnienieKanalu(StatekPlynie);
+	}
+	else if (temp->numer == KanalCztery4.numer){
+		KanalCztery4.zwolnienieKanalu(StatekPlynie);
+	}
+
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	tempStatek = qMorze.wyborStatkuDoZwolnienia(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4, NowyPort);
+	if (tempStatek)
+
+	{
+		//cout <<"typTATKU PO IFIE:"<< tempStatek->typ<<endl<<endl;
+		temp = tempStatek->wyborKanalu(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4);
+		//cerr << "Statek wybral kanal:" << temp->numer << "\n";
+		NowyPort.zajecieNarzedzi(tempStatek);
+		//qMorze.sprIlewKolejce();
+
+		qMorze.statekZwalniaMiejsce(tempStatek);
+
+		//qMorze.sprIlewKolejce();
+		if (temp->numer == KanalJeden1.numer){
+			KanalJeden1.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 1;
+		}
+		else if (temp->numer == KanalDwa2.numer){
+			KanalDwa2.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 2;
+		}
+		else if (temp->numer == KanalTrzy3.numer){
+			KanalTrzy3.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 3;
+		}
+		else if (temp->numer == KanalCztery4.numer){
+			KanalCztery4.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 4;
+		}
+		//////////////////////////////=============czas===============//////////////////////////////
+		czas = czas + (sim_clock - tempStatek->czasPrzybycia);
+		i++;
+
+
+	//	cout << "SIM:CLOCK:" << sim_clock << " CZASPRZYBYCUA:" << (tempStatek->czasPrzybycia) << "    oczekiwania:  " << sim_clock - (tempStatek->czasPrzybycia) << "typ:" << tempStatek->typ << endl;
+		//cout << sim_clock - (tempStatek->czasPrzybycia) << "typ:" << tempStatek->typ << endl << "masa" << tempStatek->masa << endl << endl;
+
+		//cout<< czas / i<<endl<<endl<<endl;
+
+
+
+
+		tempStatek->czazOczekiwania(sim_clock - tempStatek->czasPrzybycia);
+		czasTemp = tempStatek->czasPrzeplyniecia(temp);
+
+		//cerr << "Czas przelyniecia statku:" << czasTemp << "\n";
+		agenda.schedule(new wyplyniecieZToru(czasTemp, tempStatek));
+		//////////////////////////////=============czas===============//////////////////////////////
+
+	}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+		tempStatek = qPort.wyborStatkuDoZwolnieniaZportu(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4, NowyPort);
+		if (tempStatek)
+		{
+			//	cout << "opuszcza stateek:" << StatekPlynie->typ << endl;
+
+			temp = tempStatek->wyborKanalu(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4);
+			//	cerr << "numer kanalu:" << temp->numer;
+			if (temp->numer == KanalJeden1.numer){
+				KanalJeden1.zajecieKanaluZ(tempStatek);
+				tempStatek->numerKanalu = 1;
+			}
+			else if (temp->numer == KanalDwa2.numer){
+				KanalDwa2.zajecieKanaluZ(tempStatek);
+				tempStatek->numerKanalu = 2;
+			}
+			else if (temp->numer == KanalTrzy3.numer){
+				KanalTrzy3.zajecieKanaluZ(tempStatek);
+				tempStatek->numerKanalu = 3;
+			}
+			else if (temp->numer == KanalCztery4.numer){
+				KanalCztery4.zajecieKanaluZ(tempStatek);
+				tempStatek->numerKanalu = 4;
+			}
+			//qPort.sprIlewKolejce();
+			qPort.statekZwalniaMiejsce(tempStatek);
+			//qPort.sprIlewKolejce();
+			//	cerr << "w q port"<< "\n";
+			//////////////////////////////=============czas===============//////////////////////////////
+			czas = tempStatek->czasPrzeplyniecia(temp);
+			NowyPort.zwolnienieNarzedzi(tempStatek);
+			agenda.schedule(new opuszczenieToru(czas, tempStatek));
+			//////////////////////////////=============czas===============/////////////////////////////
+			//////////////////////////////////////////////////////////////////////////////////////////
+		}
+
+
+
+
+
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////konczenie obslugi//////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+konczenieObslugi::konczenieObslugi(double in_czas, Statek* in_statek) : Event(sim_clock + in_czas){
+	czas=in_czas;
+	StatekPlynie = in_statek;
+}
+void konczenieObslugi::execute(){
+//	cerr << ":///////////////////////////////ZAKONCZENIE OBSLUGI////////////////////////////////////\n";
+	double czasTemp=0;
+	Kanal *temp;
+	Statek *tempStatek;
+	//qPort.sprIlewKolejce();
+	qPort.statekZajmujeMiejsce(StatekPlynie);
+//	cerr << "qport" << endl << endl;
+	//qPort.sprIlewKolejce();
+//	cerr << "qport";
+	
+	tempStatek = qPort.wyborStatkuDoZwolnieniaZportu(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4, NowyPort);
+	if (tempStatek)
+	{
+	//	cout << "opuszcza stateek:" << StatekPlynie->typ << endl;
+
+		temp = tempStatek->wyborKanalu(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4);
+	//	cerr << "numer kanalu:" << temp->numer;
+		if (temp->numer == KanalJeden1.numer){
+			KanalJeden1.zajecieKanaluZ(tempStatek);
+			tempStatek->numerKanalu = 1;
+		}
+		if (temp->numer == KanalDwa2.numer){
+			KanalDwa2.zajecieKanaluZ(tempStatek);
+			tempStatek->numerKanalu = 2;
+		}
+		if (temp->numer == KanalTrzy3.numer){
+			KanalTrzy3.zajecieKanaluZ(tempStatek);
+			tempStatek->numerKanalu = 3;
+		}
+		if (temp->numer == KanalCztery4.numer){
+			KanalCztery4.zajecieKanaluZ(tempStatek);
+			tempStatek->numerKanalu = 4;
+		}
+		//qPort.sprIlewKolejce();
+		qPort.statekZwalniaMiejsce(tempStatek);
+		//qPort.sprIlewKolejce();
+	//	cerr << "w q port"<< "\n";
+		//////////////////////////////=============czas===============//////////////////////////////
+		czas = tempStatek->czasPrzeplyniecia(temp);
+		NowyPort.zwolnienieNarzedzi(tempStatek);
+		agenda.schedule(new opuszczenieToru(czas, tempStatek));
+		//////////////////////////////=============czas===============/////////////////////////////
+
+	}
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	tempStatek = qMorze.wyborStatkuDoZwolnienia(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4, NowyPort);
+	if (tempStatek)
+
+	{
+		//cout <<"typTATKU PO IFIE:"<< tempStatek->typ<<endl<<endl;
+		temp = tempStatek->wyborKanalu(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4);
+		//cerr << "Statek wybral kanal:" << temp->numer << "\n";
+		NowyPort.zajecieNarzedzi(tempStatek);
+		//qMorze.sprIlewKolejce();
+
+		qMorze.statekZwalniaMiejsce(tempStatek);
+
+		//qMorze.sprIlewKolejce();
+		if (temp->numer == KanalJeden1.numer){
+			KanalJeden1.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 1;
+		}
+		if (temp->numer == KanalDwa2.numer){
+			KanalDwa2.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 2;
+		}
+		if (temp->numer == KanalTrzy3.numer){
+			KanalTrzy3.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 3;
+		}
+		if (temp->numer == KanalCztery4.numer){
+			KanalCztery4.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 4;
+		}
+		//////////////////////////////=============czas===============//////////////////////////////
+		czas = czas + (sim_clock - tempStatek->czasPrzybycia);
+		i++;
+
+
+			//cout << "SIM:CLOCK:" << sim_clock << " CZASPRZYBYCUA:" << (tempStatek->czasPrzybycia) <<"    oczekiwania:  "<< sim_clock - (tempStatek->czasPrzybycia)<<"typ:"<<tempStatek->typ << endl;
+		//cout << sim_clock - (tempStatek->czasPrzybycia) << "typ:" << tempStatek->typ << endl << "masa" << tempStatek->masa << endl << endl;
+
+		//cout<< czas / i<<endl<<endl<<endl;
+
+
+
+
+		tempStatek->czazOczekiwania(sim_clock - tempStatek->czasPrzybycia);
+		czasTemp = tempStatek->czasPrzeplyniecia(temp);
+
+		//cerr << "Czas przelyniecia statku:" << czasTemp << "\n";
+		agenda.schedule(new wyplyniecieZToru(czasTemp, tempStatek));
+		//////////////////////////////=============czas===============//////////////////////////////
+
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////
+	tempStatek = qPort.wyborStatkuDoZwolnieniaZportu(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4, NowyPort);
+	if (tempStatek)
+	{
+		//	cout << "opuszcza stateek:" << StatekPlynie->typ << endl;
+
+		temp = tempStatek->wyborKanalu(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4);
+		//	cerr << "numer kanalu:" << temp->numer;
+		if (temp->numer == KanalJeden1.numer){
+			KanalJeden1.zajecieKanaluZ(tempStatek);
+			tempStatek->numerKanalu = 1;
+		}
+		if (temp->numer == KanalDwa2.numer){
+			KanalDwa2.zajecieKanaluZ(tempStatek);
+			tempStatek->numerKanalu = 2;
+		}
+		if (temp->numer == KanalTrzy3.numer){
+			KanalTrzy3.zajecieKanaluZ(tempStatek);
+			tempStatek->numerKanalu = 3;
+		}
+		if (temp->numer == KanalCztery4.numer){
+			KanalCztery4.zajecieKanaluZ(tempStatek);
+			tempStatek->numerKanalu = 4;
+		}
+		//qPort.sprIlewKolejce();
+		qPort.statekZwalniaMiejsce(tempStatek);
+		//qPort.sprIlewKolejce();
+		//	cerr << "w q port"<< "\n";
+		//////////////////////////////=============czas===============//////////////////////////////
+		czas = tempStatek->czasPrzeplyniecia(temp);
+		NowyPort.zwolnienieNarzedzi(tempStatek);
+		agenda.schedule(new opuszczenieToru(czas, tempStatek));
+		//////////////////////////////=============czas===============/////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////
+	}
+
+
+
+
+
+
+
+
+
+
+}
+
+opuszczenieToru::opuszczenieToru(double in_czas, Statek* in_statek) : Event(sim_clock + in_czas){
+	czas = in_czas;
+	StatekPlynie = in_statek;
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////opuszczenie toru//////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void opuszczenieToru::execute(){
+//	cerr << ":///////////////////////////////opuszczenie toru do morza////////////////////////////////////\n";
+	double czasTemp=0;
+	Kanal *temp = NULL;
+	Statek *tempStatek;
+	
+	//=-------------------------------------------zwolnic kanal!
+//	cerr << "Kanal" << (StatekPlynie->wKtorymTorzeJestem(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4, StatekPlynie)).numer << endl;
+	//cout << "statek typ:" << StatekPlynie->typ<<endl;
+	temp = &(StatekPlynie->wKtorymTorzeJestem(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4, StatekPlynie));
+
+	if (temp->numer == KanalJeden1.numer){
+		KanalJeden1.zwolnienieKanalu(StatekPlynie);
+	}
+	else if (temp->numer == KanalDwa2.numer){
+		KanalDwa2.zwolnienieKanalu(StatekPlynie);
+	}
+	else if (temp->numer == KanalTrzy3.numer){
+		KanalTrzy3.zwolnienieKanalu(StatekPlynie);
+	}
+	else if(temp->numer == KanalCztery4.numer){
+		KanalCztery4.zwolnienieKanalu(StatekPlynie);
+	}
+
+	statkiWyplywajace++;
+	
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	tempStatek = qMorze.wyborStatkuDoZwolnienia(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4, NowyPort);
+	if (tempStatek)
+
+	{
+		//cout <<"typTATKU PO IFIE:"<< tempStatek->typ<<endl<<endl;
+		temp = tempStatek->wyborKanalu(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4);
+		//cerr << "Statek wybral kanal:" << temp->numer << "\n";
+		NowyPort.zajecieNarzedzi(tempStatek);
+		//qMorze.sprIlewKolejce();
+
+		qMorze.statekZwalniaMiejsce(tempStatek);
+
+		//qMorze.sprIlewKolejce();
+		if (temp->numer == KanalJeden1.numer){
+			KanalJeden1.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 1;
+		}
+		if (temp->numer == KanalDwa2.numer){
+			KanalDwa2.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 2;
+		}
+		if (temp->numer == KanalTrzy3.numer){
+			KanalTrzy3.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 3;
+		}
+		if (temp->numer == KanalCztery4.numer){
+			KanalCztery4.zajecieKanaluDo(tempStatek);
+			tempStatek->numerKanalu = 4;
+		}
+		//////////////////////////////=============czas===============//////////////////////////////
+		czas = czas + (sim_clock - tempStatek->czasPrzybycia);
+		i++;
+
+
+			//cout << "SIM:CLOCK:" << sim_clock << " CZASPRZYBYCUA:" << (tempStatek->czasPrzybycia) <<"    oczekiwania:  "<< sim_clock - (tempStatek->czasPrzybycia)<<"typ:"<<tempStatek->typ << endl;
+		//cout << sim_clock - (tempStatek->czasPrzybycia) << "typ:" << tempStatek->typ << endl << "masa" << tempStatek->masa << endl << endl;
+
+		//cout<< czas / i<<endl<<endl<<endl;
+
+
+
+
+		tempStatek->czazOczekiwania(sim_clock - tempStatek->czasPrzybycia);
+		czasTemp = tempStatek->czasPrzeplyniecia(temp);
+
+		//cerr << "Czas przelyniecia statku:" << czasTemp << "\n";
+		agenda.schedule(new wyplyniecieZToru(czasTemp, tempStatek));
+		//////////////////////////////=============czas===============//////////////////////////////
+
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////
+	tempStatek = qPort.wyborStatkuDoZwolnieniaZportu(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4, NowyPort);
+	if (tempStatek)
+	{
+		//	cout << "opuszcza stateek:" << StatekPlynie->typ << endl;
+
+		temp = tempStatek->wyborKanalu(KanalJeden1, KanalDwa2, KanalTrzy3, KanalCztery4);
+		//	cerr << "numer kanalu:" << temp->numer;
+		if (temp->numer == KanalJeden1.numer){
+			KanalJeden1.zajecieKanaluZ(tempStatek);
+			tempStatek->numerKanalu = 1;
+		}
+		if (temp->numer == KanalDwa2.numer){
+			KanalDwa2.zajecieKanaluZ(tempStatek);
+			tempStatek->numerKanalu = 2;
+		}
+		if (temp->numer == KanalTrzy3.numer){
+			KanalTrzy3.zajecieKanaluZ(tempStatek);
+			tempStatek->numerKanalu = 3;
+		}
+		if (temp->numer == KanalCztery4.numer){
+			KanalCztery4.zajecieKanaluZ(tempStatek);
+			tempStatek->numerKanalu = 4;
+		}
+		//qPort.sprIlewKolejce();
+		qPort.statekZwalniaMiejsce(tempStatek);
+		//qPort.sprIlewKolejce();
+		//	cerr << "w q port"<< "\n";
+		//////////////////////////////=============czas===============//////////////////////////////
+		czas = tempStatek->czasPrzeplyniecia(temp);
+		NowyPort.zwolnienieNarzedzi(tempStatek);
+		agenda.schedule(new opuszczenieToru(czas, tempStatek));
+		//////////////////////////////=============czas===============/////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	}
+
+
+
+
+/////////////////////////////////////////////////
+//***********************************************
+

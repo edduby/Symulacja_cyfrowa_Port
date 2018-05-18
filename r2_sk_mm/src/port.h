@@ -1,0 +1,47 @@
+#ifndef PORT_H
+#define PORT_H
+/********************************************//**
+* \file port.h
+* \brief Definicja portu
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+
+/////////////////////////////////////////////////
+/*! \brief Port.
+*
+*	Implementacja Portu.
+*
+*/
+class Port{
+
+public:
+	
+	int miejsceJachty;//!< Miejsca na jachty.
+	int dzwigi;//!< Ilosc dzwigow.
+	int tasmociagi;//!< Ilosc tasmociagow.
+	int rampy;//!< Ilosc ramp.
+	int prowadnice;//!< Ilosc prowadnic
+
+	//!Funkcja dla zajmujaca narzedzia dla konkretnego statku
+	void zajecieNarzedzi(Statek *wybrany);
+	//!Funkcja dla zwalnia narzedzia dla konkretnego statku oraz 
+	void zwolnienieNarzedzi(Statek *wybrany);
+	//!Funkcja sprawdzajaca czy statek moze wplynac do portu
+	bool czyMogeWplynac(Statek *wybrany);
+	//!Funkcja sprawdzajaca czy statek jest ponownie zaladowany jezeli tak dodanie czasu jezeli nie zmiana masy
+	void czyJestPonownieZaladowany(Statek *wybrany);
+	void wykorzystanieNarzedzi(Statek *wybrany);
+	void reset();
+	Port();//!< Konstruktor domyslny
+	~Port(){}//!<destruktor domyslny
+private:
+
+
+
+};
+
+using namespace std;
+/////////////////////////////////////////////////
+//***********************************************
+#endif /*PORT_H*/ 

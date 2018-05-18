@@ -1,0 +1,51 @@
+/********************************************//**
+* \file   events.cpp
+* \brief  Time events.
+* \author Maciej Maciejewski
+* \date   2015-04-15
+***********************************************/
+#include "sc.h"
+/////////////////////////////////////////////////
+pojawienieSieStatku::pojawienieSieStatku(double in_lambda): Event(symulacja::sim_clock + Exponential(in_lambda))
+{
+	lambda = in_lambda;
+}
+void pojawienieSieStatku::execute(){
+
+	symulacja::agenda.schedule(new pojawienieSieStatku(lambda));
+	Statek *StatekPlynie = new Statek();
+	Zrodlo Generator; 
+	StatekPlynie = Generator.generacjaStatku();
+	StatekPlynie->czasPrzybycia = symulacja::sim_clock;
+
+	if (Statek::qMorze.czyPusta())
+	{
+		if (symulacja::NowyPort.czyMogeWplynac(StatekPlynie));
+	}
+	else
+	{
+		Statek::qMorze.statekZajmujeMiejsce(StatekPlynie);
+	}
+	
+
+
+
+	//co z kolejkami ? gdzie je stworzyc i oblugiwac? tak by byly caly czas? - jutro 
+	//
+
+}
+
+wyplyniecieZToru::wyplyniecieZToru(double in_lambda) : Event(symulacja::sim_clock + Exponential(in_lambda)){}
+void wyplyniecieZToru::execute(){}
+
+konczenieObslugi::konczenieObslugi(double in_lambda) : Event(symulacja::sim_clock + Exponential(in_lambda)){}
+void konczenieObslugi::execute(){}
+
+opuszczenieToru::opuszczenieToru(double in_lambda) : Event(symulacja::sim_clock + Exponential(in_lambda)){}
+void opuszczenieToru::execute(){}
+
+
+
+
+/////////////////////////////////////////////////
+//***********************************************

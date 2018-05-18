@@ -1,0 +1,105 @@
+
+/********************************************//**
+* \file kolejka.cpp
+* \brief Definicja kolejki
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+#include "sc.h"
+/////////////////////////////////////////////////
+#include "kolejka.h"
+#include "statek.h"
+
+
+
+//! Implementacja listy dwukierunkowej do kolejki.
+void Kolejka::statekZajmujeMiejsce(Statek *StatekWplywajacy){
+	Statek *nowy = StatekWplywajacy;
+	if (pierwszy == NULL)
+	{
+		
+		pierwszy = nowy;
+		pierwszy->nastepny = nowy;
+		pierwszy->poprzedni = nowy;
+		return;
+	}
+
+		Statek *temp;
+		temp = pierwszy;
+
+		while (temp->nastepny != pierwszy)
+		{
+			temp = temp->nastepny;
+		}
+		temp->nastepny = nowy;
+		nowy->nastepny = pierwszy;
+		nowy->poprzedni = temp;
+		pierwszy->poprzedni = nowy;
+		pierwszy = nowy;
+	}
+
+void Kolejka::statekZwalniaMiejsce(Statek *StatekZwalniajacy){
+	Statek *temp;
+	temp = pierwszy;
+	if (pierwszy->nastepny == pierwszy){
+		pierwszy = NULL;
+		delete pierwszy;
+		return;
+	}
+	if (temp->nastepny == StatekZwalniajacy){
+		temp = temp->nastepny;
+		pierwszy->nastepny = pierwszy;
+		pierwszy->poprzedni = pierwszy;
+		delete temp;
+		return;
+
+	}
+
+	while (temp->nastepny != StatekZwalniajacy)
+	{
+		temp = temp->nastepny;
+	}
+	temp = temp->nastepny;
+	temp->poprzedni->nastepny = temp->nastepny;
+	temp->nastepny->poprzedni = temp->poprzedni;
+	delete temp;
+
+
+
+}
+
+Statek* Kolejka::wyborStatkuDoZwolnienia(Kanal &pierwszyK, Kanal &drugiK, Kanal &trzeciK, Kanal &czwartyK, Port &MojPort)
+{
+	Statek *temp = pierwszy;// sprawdzamy ile jest stakow w kolejce by okreslic ile statkow kolejnych statkow chcemy sprawdzic pod wzgledem dopuszczenia do drogi
+	int n = 2;
+	while (temp->nastepny != pierwszy)
+	{
+		temp = temp->nastepny;
+		n++;
+	}
+
+	n = n / 2;
+	temp = pierwszy;
+	for (int i = 0; i < n; i++){
+		if (temp->czyMozeWplynac(pierwszyK, drugiK, trzeciK, czwartyK) && MojPort.czyMogeWplynac(temp)){ return temp; }
+		temp = pierwszy->nastepny;
+	}
+
+	return NULL;
+}
+
+Kolejka::Kolejka(){ pierwszy = NULL; }
+
+bool Kolejka::czyPusta(){
+
+	if (pierwszy != NULL) return 1;
+	return 0;
+	
+}
+
+
+//Statek Kolejka::ktoryStatekZwalniaMiejsce(Kolejka KolejkaStatkow, Kanal &pierwszyk, Kanal &drugi, Kanal &trzeci, Kanal &czwarty){
+
+	//if (czyMozeWplynac(pierwszyk, drugi, trzeci, czwarty, pierwszy)){  }
+//}
+

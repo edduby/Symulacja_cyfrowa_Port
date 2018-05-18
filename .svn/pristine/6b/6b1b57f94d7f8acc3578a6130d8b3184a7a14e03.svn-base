@@ -1,0 +1,104 @@
+#include "sc.h"
+
+
+using namespace std;
+/********************************************//**
+* \file sc.cpp
+* \brief Definicja klasy sc
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+namespace symulacja{
+	double sim_clock = 0.0;
+	double steady_start = 0.0;
+	EventList agenda;
+	Port NowyPort;
+	Kanal KanalJeden1(8,1);
+	Kanal KanalDwa2(12,2);
+	Kanal KanalTrzy3(20,3);
+	Kanal KanalCztery4(25,4);
+	Kolejka qPort;
+	Kolejka qMorze;
+	int i=0; 
+	int statkiWyplywajace=0;
+	double czas=0.;
+	double wynik=0.;
+	int typ1 = 0;
+	int typ2 = 0;
+	int typ3 = 0;
+	int typ4 = 0;
+	int typ5 = 0;
+	int typ6 = 0;
+	int typ7 = 0;
+	 double typ1t=0;
+	 double typ2t = 0;
+	 double typ3t = 0;
+	 double typ4t = 0;
+	 double typ5t = 0;
+	 double typ6t = 0;
+	 double tor1 = 0;
+	 double tor2 = 0;
+	 double tor3 = 0;
+	 double tor4 = 0;
+	 double maxCzasOczekiwania = 0;
+	 double czasNarzedzi=0;
+	 double czasNarzedziMiejsceJachty = 0;
+	 double czasNarzedziDzwigi = 0;
+	 double czasNarzedziTasmociagi = 0;
+	 double czasNarzedziRampy = 0;
+	 double czasNarzedziProwadnice = 0;
+	 int liczbaWszystkich = 0;
+	 int ileWygenerowalem = 0;
+
+	 ofstream client_stats;
+	 ofstream statystyki_lambda;
+}
+
+
+
+
+
+
+
+
+//! Zmiana kt wybranego toru
+void zmianaStanuKt(Kanal wybrany){//zmiana stanu kt wybranego toru
+	//nie wiem jak rozwiazac problem mijania czasu, -------/ tj z skad klasa kanal ma wiedziec ze minelo 10 min zeby zmienic kt jak i igdzie to aktualizowac/-------
+}
+
+
+
+
+
+int main()
+{
+
+	//Statek *StatekPlynie;
+	//Statek *StatekPlynie1;
+	//Statek *StatekPlynie2;
+	//Statek *StatekPlynie3;
+	//Statek *tempStatek;
+	//Zrodlo Generator;
+	//StatekPlynie = Generator.generacjaStatku();
+	//StatekPlynie->typ = 6;
+	//StatekPlynie1 = Generator.generacjaStatku();
+	//StatekPlynie1->typ = 6;
+	//StatekPlynie2 = Generator.generacjaStatku();
+	//StatekPlynie2->typ = 1;
+	//StatekPlynie3 = Generator.generacjaStatku();
+	//StatekPlynie3->typ = 6;
+
+
+	//symulacja::qMorze.statekZajmujeMiejsce(StatekPlynie);
+
+	//symulacja::qMorze.statekZajmujeMiejsce(StatekPlynie1);
+	//symulacja::qMorze.statekZajmujeMiejsce(StatekPlynie2);
+	//symulacja::qMorze.statekZajmujeMiejsce(StatekPlynie3);
+
+
+
+
+
+	Symulacja();
+	
+}

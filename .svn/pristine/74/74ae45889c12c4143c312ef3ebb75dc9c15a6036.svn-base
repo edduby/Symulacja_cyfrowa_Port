@@ -1,0 +1,21 @@
+#ifndef KANAL_H
+#define KANAL_H
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+class kanal{
+public:
+	bool zajetosc;
+	int glebokosc;
+	int czasZajetosci;
+	bool doCzyZ;
+
+private:
+
+
+
+};
+
+#endif

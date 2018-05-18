@@ -1,0 +1,105 @@
+#include "statek.h"
+
+int statek::losowanieStatku(){
+
+	int a;
+	a=rand()%100;	
+	if (a <= 20) return 1;
+	if (a > 20  && a<=30) return 2;
+	if (a > 30  && a<=50) return 3;
+	if (a > 50 && a<=65) return 4;
+	if (a > 65 && a<=90) return 5;
+	if (a > 90) return 6;
+}
+
+
+void statek::dodanieStatku(int typ2){
+
+
+
+	switch (typ2)
+	{
+	case 1:{
+
+			   typ = 1; //jacht
+			   masa = 200 + rand() % 1801;//masa jachtu przedzial 100:2000 gl. zan. nie przekrcza 2m? 
+			   ppz = 0;
+			   zanurzenie = (masa / 1000);//nie wiecej niz 2m, 
+			   czasOb = 0;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 0;
+			   wymaganeProwadnice = 0;
+
+
+			   break; }
+	case 2:{
+
+			   typ = 2;
+			   masa = 750 + rand() % 2251;
+			   ppz = 0.40;
+			   zanurzenie = (masa / 1000);
+			   czasOb = 0;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 1;
+			   wymaganeProwadnice = 0;
+			   break; }
+	case 3:{
+
+			   typ = 3;
+			   masa = 500 + rand() % 2501;
+
+			   ppz = 0.75;
+			   zanurzenie = (masa / 1000);
+			   czasOb = 0;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 2;
+			   wymaganeProwadnice = 0;
+			   break; }
+	case 4:{
+
+			   typ = 4;
+			   masa = 500 + rand() % 2501;
+
+			   ppz = 0.05;
+			   zanurzenie = (masa / 1000);
+			   czasOb = 0;
+			   wymaganeDzwigi = 1;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 0;
+			   wymaganeProwadnice = 0;
+			   break; }
+	case 5:{
+
+			   typ = 5;
+			   masa = 3000 + rand() % 9001;
+			   ppz = 0.02;
+			   zanurzenie = (masa / 1000);
+			   czasOb = 0;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 0;
+			   wymaganeProwadnice = ceil((0.7*masa) / 6000); //na kazde rozpoczete 6000j ladunku
+			   break; }
+	case 6:{
+
+			   typ = 6;
+			   masa = 1500 + rand() % 13501;
+			   ppz = 0.2;
+			   zanurzenie = (masa / 1000);
+			   czasOb = 0;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = ceil((0.7*masa) / 5000);
+			   wymaganeRampy = 0;
+			   wymaganeProwadnice = 0;
+			   break; }
+	}
+
+
+
+
+
+
+}

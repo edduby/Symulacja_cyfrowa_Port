@@ -1,0 +1,40 @@
+/********************************************//**
+* \file sc.h
+* \brief Definicja sc.
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+#ifndef SC_H
+#define SC_H
+//***********************************************
+/////////////////////////////////////////////////
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <string>
+#include <sstream>
+#include <vector>
+#include <cstdlib>
+#include <math.h>
+//-----------------------------------------------
+using namespace std;
+//-----------------------------------------------
+#include "statek.h"
+#include "kanal.h"
+#include "rng.h"
+#include "kolejka.h"
+#include "zrodlo.h"
+#include "port.h"
+
+
+
+
+
+using namespace std;
+
+
+/////////////////////////////////////////////////
+//***********************************************
+
+
+#endif /*SC_H*/

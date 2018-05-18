@@ -1,0 +1,32 @@
+#ifndef STATEK_H
+#define STATEK_H
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+class statek{
+
+public: 
+
+	statek *nastepny;
+	statek *poprzedni;
+	int typ;
+	int masa;
+	int ppz; //prawdopodobienstwo ponownego zaladunku
+	int zanurzenie;
+	int czasOb;
+	int wymaganeDzwigi;
+	int wymaganeTasmociagi;
+	int wymaganeRampy;
+	int wymaganeProwadnice;
+	friend class kolejka;
+
+
+	int losowanieStatku();
+	void dodanieStatku(int typ2);
+private:
+
+};
+
+#endif 

@@ -1,0 +1,122 @@
+/********************************************//**
+* \file symulacja.h
+* \brief Definicja obiektu symulacja
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+
+#include "sc.h"
+#ifndef SIMULACJA_H
+#define SIMULACJA_H
+/////////////////////////////////////////////////
+/*! \brief Symulacja.
+*
+*	Implementacja Symulacji.
+*
+*/
+
+int czasGlobalny; 
+
+void Symulacja()
+{
+
+
+
+
+
+int tool_seed[9];
+	
+
+int seed = 1234, idx = 0;
+
+	for (int i = 0; i < 4 * 10000; i++)
+	{
+		Uniform(seed);
+
+		if (!(i % 10000))
+		{
+			tool_seed[idx++] = seed;
+			std::cout << seed << endl;
+		}
+	}
+
+	Statek::tools_seed1 = tool_seed[7];
+	Statek::tools_seed2 = tool_seed[1];
+	Statek::tools_seed3 = tool_seed[2];
+	Statek::tools_seed4 = tool_seed[3];
+	Statek::tools_seed5 = tool_seed[4];
+	Statek::tools_seed6 = tool_seed[5];
+	Statek::tools_seed7 = tool_seed[6];
+	Statek::tools_seed8 = tool_seed[0];
+
+	double lambda_1 = 0.05789;
+
+	//double lambda_1 = 0.0389;
+
+	Event * current = NULL;
+	int M = 10;
+//	for (double lambda_1 = 1. / 100; lambda_1 < 20./100; lambda_1 += 1. / 100)
+//	{
+	//	for (int m = 0; m < M; m++)
+		//{
+			//---------------------------------------
+			// Initialize model:
+			//---------------------------------------
+			symulacja::liczbaWszystkich = 0;
+			symulacja::sim_clock = 0.0;
+			symulacja::agenda.schedule(new pojawienieSieStatku(lambda_1, tool_seed[8]));
+			//---------------------------------------
+			// Transient phase:
+			//---------------------------------------
+
+			while (symulacja::liczbaWszystkich < 10000)
+			{
+
+				current = symulacja::agenda.remove_first();
+
+				symulacja::sim_clock = current->event_time;
+				//	cout << symulacja::sim_clock << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n";
+
+
+				current->execute();
+
+				delete current;
+			}
+
+
+
+			//	reset_statistics()
+
+			symulacja::wynik = symulacja::czas / symulacja::i;
+			cout << "Sredni czas przybycia wszystkich statkow:" << symulacja::wynik << "min" << endl;
+			cout << "Liczba statkow wyplywajacych z toru:" << symulacja::i << endl;
+			cout << "liczba wyplywajacych z sytemu:" << symulacja::liczbaWszystkich << endl;
+			//cout << "  typ:" << symulacja::typ1 << "  typ:" << symulacja::typ2 << "  typ:" << symulacja::typ3 << "  typ:" << symulacja::typ4 << "  typ:" << symulacja::typ5 << "  typ:" << symulacja::typ6 <<endl;
+			//cout << "  typ:" << symulacja::typ1t << "  typ:" << symulacja::typ2t << "  typ:" << symulacja::typ3t << "  typ:" << symulacja::typ4t << "  typ:" << symulacja::typ5t << "  typ:" << symulacja::typ6t << endl;
+			cout << "  Sredni czas 1 :" << symulacja::typ1t / symulacja::typ1 << endl << "  Sredni czas 2 :" << symulacja::typ2t / symulacja::typ1 << endl << "  Sredni czas 3 :" << symulacja::typ3t / symulacja::typ1 << endl << "   Sredni czas 4:" << symulacja::typ4t / symulacja::typ1 << endl << "   Sredni czas 5:" << symulacja::typ5t / symulacja::typ1 << endl << "   Sredni czas 6:" << symulacja::typ6t / symulacja::typ1 << endl;
+			cout << "statkow wyplywajacych jest:" << symulacja::statkiWyplywajace << endl;
+			cout << symulacja::KanalJeden1.czasZajetosci / symulacja::sim_clock << endl;
+			cout << symulacja::KanalDwa2.czasZajetosci / symulacja::sim_clock << endl;
+			cout << symulacja::KanalTrzy3.czasZajetosci / symulacja::sim_clock << endl;
+			cout << symulacja::KanalCztery4.czasZajetosci / symulacja::sim_clock << endl;
+			cout << "max czas oczekiwania:" << symulacja::maxCzasOczekiwania << endl;
+			cout << "dzwigi:" << symulacja::czasNarzedziDzwigi / (symulacja::sim_clock * 6) << endl;
+			cout << "jachty:" << symulacja::czasNarzedziMiejsceJachty / (symulacja::sim_clock * 55) << endl;
+			cout << "prowadnice:" << symulacja::czasNarzedziProwadnice / (symulacja::sim_clock * 8) << endl;
+			cout << "rampy:" << symulacja::czasNarzedziRampy / (symulacja::sim_clock * 10) << endl;
+			cout << "tasmociagi:" << symulacja::czasNarzedziTasmociagi / (symulacja::sim_clock * 4) << endl;
+
+		//}
+
+	//}
+		system("pause");
+
+
+
+	
+}
+
+
+/////////////////////////////////////////////////
+//***********************************************
+#endif /*SYMULACJA_H*/  

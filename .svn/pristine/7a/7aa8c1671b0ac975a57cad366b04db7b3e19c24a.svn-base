@@ -1,0 +1,14 @@
+#ifndef KOLEJKA_H
+#define KOLEJKA_H
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+class kolejka{
+public:
+private:
+
+
+};
+
+#endif

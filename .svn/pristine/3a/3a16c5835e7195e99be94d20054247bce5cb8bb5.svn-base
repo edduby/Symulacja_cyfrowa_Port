@@ -1,0 +1,14 @@
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <string>
+#include <sstream>
+#include <vector>
+#include "rng.h"
+#include "kolejka.h"
+#include "kanal.h"
+#include "statek.h"
+#include "zrodlo.h"
+#include "port.h"
+
+using namespace std;

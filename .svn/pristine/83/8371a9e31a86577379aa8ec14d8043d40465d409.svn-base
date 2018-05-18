@@ -1,0 +1,171 @@
+#include "sc.h"
+#include "symulacja.h"
+
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <string>
+#include <sstream>
+#include <vector>
+#include "rng.h"
+#include "kolejka.h"
+#include "kanal.h"
+#include "statek.h"
+#include "zrodlo.h"
+#include "port.h"
+
+using namespace std;
+
+
+
+int losujMaseStatku(int typStatku){
+	int masaStatku;
+
+	switch (typStatku)
+	{
+	case 1:{
+			   masaStatku = 200 + rand() % 1801;
+			   break; }
+	case 2:
+	{
+			  masaStatku = 750 + rand() % 2251;
+			  break;
+	}
+	case 3:
+	{
+			  masaStatku = 500 + rand() % 2501;
+			  break;
+	}
+	case 4:
+	{
+			  masaStatku = 500 + rand() % 2501;
+			  break;
+	}
+	case 5:
+	{
+			  masaStatku = 3000 + rand() % 9001;
+			  break;
+
+	}
+	case 6:
+	{
+			  masaStatku = 1500 + rand() % 13501;
+			  break;
+	}
+
+
+	}
+	return masaStatku;
+}
+
+
+
+void utworzenieStatku(int a)
+{
+	int typ;
+	int masa;
+	int ppz;
+	int zanurzenie;
+	int czasOb;
+	int wymaganeDzwigi;
+	int wymaganeTasmociagi;
+	int wymaganeRampy;
+	int wymaganeProwadnice;
+
+
+
+	switch (a)
+	{
+	case 1:{
+
+			   typ = 1; //jacht
+			   masa = 3;//masa jachtu przedzial 100:2000 gl. zan. nie przekrcza 2m? 
+			   ppz = 0;
+			   zanurzenie = (masa / 1000);//nie wiecej niz 2m, 
+			   czasOb = 0;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 0;
+			   wymaganeProwadnice = 0;
+
+
+			   break; }
+	case 2:{
+
+			   typ = 2; //jacht
+			   masa = 3;//masa jachtu przedzial 100:2000 gl. zan. nie przekrcza 2m? 
+			   ppz = 0;
+			   zanurzenie = (masa / 1000);//nie wiecej niz 2m, 
+			   czasOb = 0;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 0;
+			   wymaganeProwadnice = 0;
+			   break; }
+	case 3:{
+
+			   typ = 3; //jacht
+			   masa = 3;//masa jachtu przedzial 100:2000 gl. zan. nie przekrcza 2m? 
+			   ppz = 0;
+			   zanurzenie = (masa / 1000);//nie wiecej niz 2m, 
+			   czasOb = 0;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 0;
+			   wymaganeProwadnice = 0;
+			   break; }
+	case 4:{
+
+			   typ = 4; //jacht
+			   masa = 3;//masa jachtu przedzial 100:2000 gl. zan. nie przekrcza 2m? 
+			   ppz = 0;
+			   zanurzenie = (masa / 1000);//nie wiecej niz 2m, 
+			   czasOb = 0;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 0;
+			   wymaganeProwadnice = 0;
+			   break; }
+	case 5:{
+
+			   typ = 5; //jacht
+			   masa = 3;//masa jachtu przedzial 100:2000 gl. zan. nie przekrcza 2m? 
+			   ppz = 0;
+			   zanurzenie = (masa / 1000);//nie wiecej niz 2m, 
+			   czasOb = 0;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 0;
+			   wymaganeProwadnice = 0;
+			   break; }
+	case 6:{
+
+			   typ = 6; //jacht
+			   masa = 3;//masa jachtu przedzial 100:2000 gl. zan. nie przekrcza 2m? 
+			   ppz = 0;
+			   zanurzenie = (masa / 1000);//nie wiecej niz 2m, 
+			   czasOb = 0;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 0;
+			   wymaganeProwadnice = 0;
+			   break; }
+	}
+
+}
+
+
+
+int main()
+{
+	srand(time(NULL));
+	int a;
+	statek proba;
+	a= proba.losowanieStatku();
+	cout << a;
+
+	cin >> a;
+		
+
+
+}

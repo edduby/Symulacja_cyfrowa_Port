@@ -1,0 +1,65 @@
+/********************************************//**
+* \file statek.cpp
+* \brief Definicja obiektu statek
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+#ifndef STATEK_H
+#define STATEK_H
+class Kanal;
+/////////////////////////////////////////////////
+/*! \brief Statek.
+*
+*	Implementacja statku.
+*
+*/
+class Statek{
+
+
+
+public: 
+
+
+	Statek *nastepny;
+	Statek *poprzedni;
+	int typ;
+	double masa;
+	double ppz; //prawdopodobienstwo ponownego zaladunku
+	double zanurzenie;
+	double czasOb;
+	int wymaganeDzwigi;
+	int wymaganeTasmociagi;
+	int wymaganeRampy;
+	int wymaganeProwadnice;
+	friend class kolejka;
+
+
+	//!Konstruktor
+	Statek() :
+		nastepny(NULL),
+		poprzedni(NULL),
+		typ(0),
+		masa(0),
+		ppz(0),
+		zanurzenie(0),
+		czasOb(0),
+		wymaganeDzwigi(0),
+		wymaganeTasmociagi(0),
+		wymaganeRampy(0),
+		wymaganeProwadnice(0)
+	{}
+
+
+	int losowanieStatku();//!< Losowanie statku
+	void dodanieStatku();//!< Dodanie statku (obiekt przyjmuje wartosci)
+	bool czyMozeWplynac(Kanal &pierwszy, Kanal &drugi, Kanal &trzeci, Kanal &czwarty);//!< Funkcja sprawdzajaca czy mozemy wplynac do kanalu
+	Kanal wyborKanalu(Kanal &pierwszy, Kanal &drugi, Kanal &trzeci, Kanal &czwarty);//!< Funkcja zwracajaca kanal do ktorego mozemy wplynac
+
+
+private:
+
+};
+
+/////////////////////////////////////////////////
+//***********************************************
+#endif /*STATEK_H*/ 

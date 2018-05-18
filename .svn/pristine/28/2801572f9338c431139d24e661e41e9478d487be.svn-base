@@ -1,0 +1,25 @@
+#ifndef ZRODLO_H
+#define ZRODLO_H
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+class Zrodlo
+{
+public:
+	int L;
+	Zrodlo(double L2)
+	{
+		L = L2;
+		
+	}
+
+	~Zrodlo(){}
+
+private: 
+
+
+};
+
+#endif 

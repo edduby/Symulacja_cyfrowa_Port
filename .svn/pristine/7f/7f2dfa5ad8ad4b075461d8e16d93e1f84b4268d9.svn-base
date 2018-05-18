@@ -1,0 +1,62 @@
+/********************************************//**
+* \file sc.h
+* \brief Definicja sc.
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+#ifndef SC_H
+#define SC_H
+//***********************************************
+/////////////////////////////////////////////////
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <string>
+#include <sstream>
+#include <vector>
+#include <cstdlib>
+#include <math.h>
+//-----------------------------------------------
+using namespace std;
+//-----------------------------------------------
+
+
+
+using namespace std;
+
+//-----------------------------------------------
+
+
+//-----------------------------------------------
+
+
+
+
+#include "statek.h"
+#include "kanal.h"
+#include "rng.h"
+#include "kolejka.h"
+#include "event_scheduling.h"
+
+#include "zrodlo.h"
+#include "port.h"
+#include "events.h"
+
+namespace symulacja{
+	extern Port NowyPort;
+	extern EventList agenda;
+	extern Kanal KanalJeden1;
+	extern Kanal KanalDwa2;
+	extern Kanal KanalTrzy3;
+	extern Kanal KanalCztery4;
+	extern double sim_clock;
+	extern double steady_start;
+	extern Kolejka qPort;			
+	extern Kolejka qMorze;
+}
+
+/////////////////////////////////////////////////
+//***********************************************
+
+
+#endif /*SC_H*/

@@ -1,0 +1,25 @@
+#ifndef STATEK_H
+#define STATEK_H
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+class statek{
+
+public: 
+
+	statek *nastepny;
+	string typ;
+	int masa;
+	int ppz; //prawdopodobienstwo ponownego zaladunku
+	int urzadzenia;
+
+	friend class kolejka;
+
+
+private:
+
+};
+
+#endif 

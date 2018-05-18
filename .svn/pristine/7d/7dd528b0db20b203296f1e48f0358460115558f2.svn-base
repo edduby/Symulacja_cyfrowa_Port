@@ -1,0 +1,13 @@
+using namespace std;
+#ifndef SIMULACJA_H
+#define SIMULACJA_H
+
+
+void symulacja()
+{
+//miejsce symulacji
+
+}
+
+
+#endif 

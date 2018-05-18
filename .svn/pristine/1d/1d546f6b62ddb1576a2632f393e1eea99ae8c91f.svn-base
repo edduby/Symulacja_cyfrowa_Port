@@ -1,0 +1,13 @@
+#include "statek.h"
+
+int statek::losowanieStatku(){
+
+
+	rand()%100;
+		
+	return 0;
+
+
+
+
+}

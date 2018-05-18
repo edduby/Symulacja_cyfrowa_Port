@@ -1,0 +1,115 @@
+/********************************************//**
+* \file statek.cpp
+* \brief Definicja obiektu statek
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+#ifndef STATEK_H
+#define STATEK_H
+class Kanal;
+
+
+
+/////////////////////////////////////////////////
+/*! \brief Statek.
+*
+*	Implementacja statku.
+*
+*/
+class Statek{
+
+
+
+public: 
+
+	friend class Kolejka;
+	friend class pojawienieSieStatku;
+	friend class wyplyniecieZToru;
+	friend class konczenieObslugi;
+	friend class opuszczenieToru;
+	friend void Symulacja();
+	static int tools_seed1;
+	static int tools_seed2;
+	static int tools_seed3;
+	static int tools_seed4;
+	static int tools_seed5;
+	static int tools_seed6;
+	static int tools_seed7;	
+	static int tools_seed8;
+
+	static int jr_seed1;
+	static int jr_seed2;
+	static int jr_seed3;
+	static int jr_seed4;
+	static int jr_seed5;
+
+
+
+	Statek *nastepny;//<! Wskaznik na nastepny
+	Statek *poprzedni;//<! Wskaznik na poprzedni
+	int typ;//<! Typ statku
+	double masa;//<! Masa statku
+	bool ppz; //<! Prawdopodobienstwo ponownego zaladunku
+	double zanurzenie;//<! Zanurzenie statku
+	double czasOb;//<! Czas obslugi
+	int numerKanalu;
+	int wymaganeDzwigi;//<! Dzwigi
+	int wymaganeTasmociagi;//<! Tasmociagi
+	int wymaganeRampy;//<! Rampy
+	int wymaganeProwadnice;//<! Prowadnice
+	double czasOpuszczenia;//<! Czas opuszczenia statku z systemu
+	double czasMagazynowy; //<! Czas w ktorym statek przebywa na zaladunku i rozladunku
+	double czasPrzybyciaZgeneratora;
+	double czasPrzybycia;
+	double czasWplynieciaDoKanalu;
+	double czasPrzeplyniecia(Kanal *wybrany);
+	double czasRozladunku();
+	double czasZajeciaNarzedzi;
+	void czazOczekiwania(double czas);
+	double czasPrzeplynieciaPrzezKanal;
+	Kanal &wKtorymTorzeJestem(Kanal &pierwszy,Kanal &drugi,Kanal &trzeci,Kanal &czwarty, Statek *plynie);//< Wybiore kanal w ktorym jestem
+	ofstream statystyki;
+	static void resetStatystyk();
+	//pojawienieSieStatku
+	//czas
+
+
+
+	friend class kolejka;//<! Zaprzyjaznienie 
+
+
+	//!Konstruktor
+	Statek() :
+		nastepny(NULL),
+		poprzedni(NULL),
+		typ(0),
+		masa(0),
+		ppz(NULL),
+		zanurzenie(0),
+		czasOb(0),
+		wymaganeDzwigi(0),
+		wymaganeTasmociagi(0),
+		wymaganeRampy(0),
+		wymaganeProwadnice(0),
+		czasMagazynowy(0),
+		czasPrzybycia(0),
+		czasPrzeplynieciaPrzezKanal(0)
+	{}
+
+
+	int losowanieStatku();//!< Losowanie statku
+	void dodanieStatku();//!< Dodanie statku (obiekt przyjmuje wartosci)
+	bool czyMozeWplynac(Kanal &pierwszy, Kanal &drugi, Kanal &trzeci, Kanal &czwarty);//!< Funkcja sprawdzajaca czy mozemy wplynac do kanalu
+	Kanal *wyborKanalu(Kanal &pierwszy, Kanal &drugi, Kanal &trzeci, Kanal &czwarty);//!< Funkcja zwracajaca kanal do ktorego mozemy wplynac
+	Kanal wyborKanaluiZajecie(Kanal pierwszy, Kanal drugi, Kanal trzeci, Kanal czwarty, Statek *plynie);
+
+private:
+
+
+
+
+};
+
+/////////////////////////////////////////////////
+//***********************************************
+#endif /*STATEK_H*/ 

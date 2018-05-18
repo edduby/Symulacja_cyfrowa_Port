@@ -1,0 +1,45 @@
+/********************************************//**
+* \file kanal.h
+* \brief Definicja obiektu kanalu
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+
+
+
+
+#ifndef KANAL_H
+#define KANAL_H
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+/////////////////////////////////////////////////
+/*! \brief kanal.
+*
+*	Implementacja kanalu.
+*
+*/
+
+
+class Kanal{
+
+
+
+	//! Parametry kanalu.
+public:
+	bool zajetosc;
+	int glebokosc;
+	int czasZajetosci;
+	bool doCzyZ;
+	int kt;
+	
+private:
+
+
+
+};
+
+/////////////////////////////////////////////////
+//***********************************************
+#endif /*KANAL_H*/ 

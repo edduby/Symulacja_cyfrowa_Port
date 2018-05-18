@@ -1,0 +1,59 @@
+
+/********************************************//**
+* \file kolejka.cpp
+* \brief Definicja kolejki
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+
+
+#include "kolejka.h"
+/////////////////////////////////////////////////
+
+//! Implementacja listy dwukierunkowej do kolejki.
+void Kolejka::statekZajmujeMiejsce(Statek *StatekWplywajacy){
+	Statek *nowy = StatekWplywajacy;
+	//nowy->numer = numer2;
+	if (pierwszy == NULL)
+	{
+		pierwszy = nowy;
+		pierwszy->nastepny = nowy;
+		pierwszy->poprzedni = nowy;
+		return;
+	}
+	if (pierwszy->typ<nowy->typ)
+	{
+		Statek *temp, *temp2;
+		temp = pierwszy; temp2 = pierwszy;
+		while (temp->typ<nowy->typ){
+			if (temp->nastepny == pierwszy)
+			{
+				temp->nastepny = nowy;
+				pierwszy->poprzedni = nowy;
+				nowy->nastepny = pierwszy;
+				return;
+			}
+			temp2 = temp;
+			temp = temp->nastepny;
+		}
+		temp2->nastepny = nowy;
+		nowy->nastepny = temp;
+		nowy->poprzedni = temp2;
+		temp->poprzedni = nowy;
+
+	}
+	else{
+		Statek *temp;
+		temp = pierwszy;
+		while (temp->nastepny != pierwszy)
+		{
+			temp = temp->nastepny;
+		}
+		temp->nastepny = nowy;
+		nowy->nastepny = pierwszy;
+		nowy->poprzedni = temp;
+		pierwszy->poprzedni = nowy;
+		pierwszy = nowy;
+	}
+}
+

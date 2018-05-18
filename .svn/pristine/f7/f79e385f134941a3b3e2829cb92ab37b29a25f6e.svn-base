@@ -1,0 +1,153 @@
+
+/********************************************//**
+* \file kolejka.cpp
+* \brief Definicja kolejki
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+#include "sc.h"
+/////////////////////////////////////////////////
+#include "kolejka.h"
+#include "statek.h"
+
+
+
+//! Implementacja listy dwukierunkowej do kolejki.
+void Kolejka::statekZajmujeMiejsce(Statek *StatekWplywajacy){
+	cout << "zajmuje miesjce w kolejce \n";
+	int i = 1;
+	if (pierwszy == NULL)
+	{
+		cerr << "Jestem pierwszym statkiem:" << StatekWplywajacy->typ<<"\n";
+		pierwszy = StatekWplywajacy;
+		pierwszy->nastepny = NULL;
+		pierwszy->poprzedni = NULL;
+
+	}
+	else
+	{
+		Statek *temp = pierwszy;
+		while (temp->nastepny != NULL)
+		{
+			temp = temp->nastepny;
+			i++;
+		}
+		cerr << "Jestem kolejnym statkiem w kolejce typ:"<<StatekWplywajacy->typ<<" Jest nas:"<<i<<"\n\n";
+		temp->nastepny = StatekWplywajacy;
+		StatekWplywajacy->nastepny = NULL;
+		StatekWplywajacy->poprzedni = temp;
+		{
+
+		}
+	}
+
+}
+
+//	/*if (pierwszy->nastepny == pierwszy)
+//	{
+//		pierwszy->nastepny = nowy;
+//		pierwszy->poprzedni = nowy;
+//		nowy->poprzedni = pierwszy;
+//		nowy->nastepny = pierwszy;
+//		return;
+//	}
+//		
+//	
+//		Statek *temp;
+//		temp = pierwszy;
+//		while (temp->nastepny != pierwszy)
+//		{
+//			temp = temp->nastepny;
+//		}
+//		temp->nastepny = nowy;
+//		nowy->nastepny = pierwszy;
+//		nowy->poprzedni = temp;
+//		pierwszy->poprzedni = nowy;
+//		return;
+//	}
+//
+void Kolejka::statekZwalniaMiejsce(Statek *StatekZwalniajacy){
+	cout << "zwalnia miesjce w kolejce typ:"<<StatekZwalniajacy->typ<<"\n";
+	if (pierwszy == NULL){ cerr << "kolejka pusta jest"; return; }
+	Statek *temp;
+	temp = pierwszy;
+	while(temp->nastepny != NULL){
+		temp = temp->nastepny;
+	}
+	if (temp==pierwszy)
+	{
+		if (pierwszy->nastepny == NULL)
+		{
+			pierwszy = NULL;
+		}
+		else
+		{
+			pierwszy = pierwszy->nastepny;
+			pierwszy->poprzedni = NULL;
+		}
+
+	}
+	else
+	{
+		temp->poprzedni->nastepny = temp->nastepny;
+		if (temp->nastepny != NULL)
+		{
+			temp->nastepny->poprzedni = temp->poprzedni;
+		}
+	}
+
+	
+
+
+}
+
+Statek* Kolejka::wyborStatkuDoZwolnienia(Kanal &pierwszyK, Kanal &drugiK, Kanal &trzeciK, Kanal &czwartyK, Port &MojPort)
+{
+	cout << "wybieram statek do zwolnienia: \n";
+	if (pierwszy == NULL){ cerr << "brak statku do zwolnbienia"; return NULL; }
+	Statek *temp = pierwszy;// sprawdzamy ile jest stakow w kolejce by okreslic ile statkow kolejnych statkow chcemy sprawdzic pod wzgledem dopuszczenia do drogi
+	temp = pierwszy;
+	while (temp->nastepny!=NULL){
+		if (temp->czyMozeWplynac(pierwszyK, drugiK, trzeciK, czwartyK) && MojPort.czyMogeWplynac(temp)){
+			cerr << "Wybrany statek do zwolnienia:"<<temp->typ<<"\n";
+			return temp; 
+		}
+		temp = temp->nastepny;
+	}
+	return NULL;
+}
+
+
+void Kolejka::sprIlewKolejce(){
+	Statek *temp;
+	temp = pierwszy;
+	int i=0;
+	while (temp->nastepny != NULL){
+		i++;
+		temp = temp->nastepny;
+		}
+
+	cout <<"dlugoscKolejki:"<< i<<"\n";
+}
+
+
+Kolejka::Kolejka(){ pierwszy = NULL; }
+
+bool Kolejka::czyPusta(){
+
+	if (pierwszy == NULL)
+	{cerr << "Kolejka pusta\n";
+		return 1;
+	
+	};
+	cerr << "Kolejka nie pusta\n";
+	return 0;
+	
+}
+
+
+//Statek Kolejka::ktoryStatekZwalniaMiejsce(Kolejka KolejkaStatkow, Kanal &pierwszyk, Kanal &drugi, Kanal &trzeci, Kanal &czwarty){
+
+	//if (czyMozeWplynac(pierwszyk, drugi, trzeci, czwarty, pierwszy)){  }
+//}
+

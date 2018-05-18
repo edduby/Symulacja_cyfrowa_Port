@@ -1,0 +1,50 @@
+#ifndef KOLEJKA_H
+#define KOLEJKA_H
+/********************************************//**
+* \file kolejka.h
+* \brief
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+
+#include <iostream>
+#include <cstdlib>
+#include "Statek.h"
+/////////////////////////////////////////////////
+
+
+using namespace std;
+class Kolejka{
+private:
+	Statek *pierwszy;
+
+public:
+	
+	void statekZajmujeMiejsce(int typ2);
+	void statekZwalniaMiejsce(int tup2);
+	void wyswietl();
+	Statek* szukaj(int numer2);
+	
+
+
+
+	Kolejka(){ pierwszy = NULL; }
+
+	~Kolejka(){
+		Statek *ostatni;
+		Statek *temp;
+		for (ostatni = pierwszy->nastepny; ostatni != pierwszy; ostatni = temp)
+		{
+			temp = ostatni->nastepny;
+			delete ostatni;
+
+		}
+		cout << "destruktor";
+		delete pierwszy;
+	}
+
+
+
+};
+
+#endif

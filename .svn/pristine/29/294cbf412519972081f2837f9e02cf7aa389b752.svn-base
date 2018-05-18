@@ -1,0 +1,39 @@
+/********************************************//**
+* \file zrodlo.h
+* \brief Definicja zrodla
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+
+#ifndef ZRODLO_H
+#define ZRODLO_H
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+/////////////////////////////////////////////////
+/*! \brief Zrodlo.
+*
+*	Implementacja zrodla.
+*
+*/
+
+class Zrodlo
+{
+public:
+	int L;
+	Zrodlo(double L2)
+	{
+		L = L2;
+		
+	}
+
+	~Zrodlo(){}
+
+private: 
+
+
+};
+
+/////////////////////////////////////////////////
+//***********************************************
+#endif /*ZRODLO_H*/ 

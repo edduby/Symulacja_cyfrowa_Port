@@ -1,0 +1,147 @@
+/********************************************//**
+ * \file   statek.cpp
+ * \brief  Definicja statku
+ * \author Maciej Maciejewski
+ * \date   2015-04-23
+ ***********************************************/
+
+
+
+#include "sc.h"
+
+
+/////////////////////////////////////////////////
+
+
+//! Funkcja losujaca statek.
+int Statek::losowanieStatku(){
+
+	int a;
+	a=Uniform() * 100;	
+	if (a <= 20) return 1;
+	if (a > 20  && a<=30) return 2;
+	if (a > 30  && a<=50) return 3;
+	if (a > 50 && a<=65) return 4;
+	if (a > 65 && a<=90) return 5;
+	 return 6;
+
+}
+
+//! Dodanie i wylosowanie statku
+void Statek::dodanieStatku(){
+
+	int x = Uniform() * 100;
+
+	switch (losowanieStatku())
+	{
+	case 1:{
+
+			   typ = 1; //<!jacht
+			   masa = 200 + Uniform() * 1800;//!<masa jachtu przedzial 100:2000 gl. zan. nie przekrcza 2m? 
+			   ppz= NULL;
+			   zanurzenie = (masa / 1000.0);//!<nie wiecej niz 2m, 
+			   czasOb = 24+ Uniform() * 73;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 0;
+			   wymaganeProwadnice = 0;
+
+
+			   break; }
+	case 2:{
+
+			   typ = 2;
+			   masa = 750 + Uniform() * 2250;
+			   if (x <= 40) ppz = true;
+			   zanurzenie = (masa / 1000.0);
+			   czasOb = 0;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 1;
+			   wymaganeProwadnice = 0;
+			   break; }
+	case 3:{
+
+			   typ = 3;
+			   masa = 500 + Uniform() * 2500;
+
+			   if (x <= 75) ppz = true;
+			   zanurzenie = (masa / 1000.0);
+			   czasOb = 0;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 2;
+			   wymaganeProwadnice = 0;
+			   break; }
+	case 4:{
+
+			   typ = 4;
+			   masa = 500 + Uniform() * 2500;
+
+			   if (x <= 5) ppz = true;
+			   zanurzenie = (masa / 1000.0);
+			   czasOb = 0;
+			   wymaganeDzwigi = 1;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 0;
+			   wymaganeProwadnice = 0;
+			   break; }
+	case 5:{
+
+			   typ = 5;
+			   masa = 3000 + Uniform() * 9000;
+			   if (x <= 2 ) ppz = true;
+			   zanurzenie = (masa / 1000.0);
+			   czasOb = 0;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = 0;
+			   wymaganeRampy = 0;
+			   wymaganeProwadnice = (int)ceil((0.7*masa) / 6000); //na kazde rozpoczete 6000j ladunku
+			   break; }
+	case 6:{
+
+			   typ = 6;
+			   masa = 1500 + Uniform() * 13500;
+			   if (x <= 20) ppz = true;
+			   zanurzenie = (masa / 1000.0);
+			   czasOb = 0;
+			   wymaganeDzwigi = 0;
+			   wymaganeTasmociagi = (int)ceil((0.7*masa) / 5000);
+			   wymaganeRampy = 0;
+			   wymaganeProwadnice = 0;
+			   break; }
+	}
+
+
+
+
+
+
+}
+
+
+bool Statek::czyMozeWplynac(Kanal &pierwszy, Kanal &drugi, Kanal &trzeci, Kanal &czwarty)//<! Okreslenie czy statek moze wplynac do portu
+{
+	if ((pierwszy.zajetosc == 0) && (pierwszy.glebokosc >=zanurzenie)){ return 1; }
+	if ((drugi.zajetosc == 0) && (drugi.glebokosc >= zanurzenie)){ return 1; }
+	if ((trzeci.zajetosc == 0) && (trzeci.glebokosc >= zanurzenie)){ return 1; }
+	if ((czwarty.zajetosc == 0) && (czwarty.glebokosc >=zanurzenie)){ return 1; }
+	return 0;
+}
+
+
+Kanal Statek::wyborKanalu(Kanal &pierwszy, Kanal &drugi, Kanal &trzeci, Kanal &czwarty)//<! Wybor najlepszego kanalu dla statku pod wzgledem dobrego wykorzystania
+{
+	double min = 100;
+	Kanal temp;
+	if ((pierwszy.zajetosc == 0) && (pierwszy.glebokosc >= zanurzenie)){ if (pierwszy.glebokosc - zanurzenie < min){ min = pierwszy.glebokosc - zanurzenie; temp = pierwszy; } }
+	if ((drugi.zajetosc == 0) && (drugi.glebokosc >= zanurzenie)){ if (drugi.glebokosc - zanurzenie < min){ min = drugi.glebokosc - zanurzenie; temp = drugi; } }
+	if ((trzeci.zajetosc == 0) && (trzeci.glebokosc >= zanurzenie)){ if (trzeci.glebokosc - zanurzenie < min){ min = trzeci.glebokosc - zanurzenie; temp = trzeci; } }
+	if ((czwarty.zajetosc == 0) && (czwarty.glebokosc >= zanurzenie)){ if (czwarty.glebokosc - zanurzenie < min){ min = czwarty.glebokosc - zanurzenie; temp = czwarty; } }
+
+
+
+	return temp;
+
+}
+

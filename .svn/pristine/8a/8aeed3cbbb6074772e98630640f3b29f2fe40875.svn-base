@@ -1,0 +1,17 @@
+#include "statek.h"
+
+int statek::losowanieStatku(){
+
+	int a;
+	a=rand()%100;	
+	if (a <= 20) return 1;
+	if (a > 20  && a<=30) return 2;
+	if (a > 30  && a<=50) return 3;
+	if (a > 50 && a<=65) return 4;
+	if (a > 65 && a<=90) return 5;
+	if (a > 90) return 6;
+	
+		
+
+
+}

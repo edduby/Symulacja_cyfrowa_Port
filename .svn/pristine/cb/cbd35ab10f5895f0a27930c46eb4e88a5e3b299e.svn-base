@@ -1,0 +1,12 @@
+#include "sc.h"
+#include "symulacja.h"
+
+int main()
+{
+
+	symulacja();
+
+
+
+
+}

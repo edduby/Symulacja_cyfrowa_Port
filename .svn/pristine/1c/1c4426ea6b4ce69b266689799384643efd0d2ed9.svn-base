@@ -1,0 +1,29 @@
+/********************************************//**
+* \file kanal.cpp
+* \brief Definicja kanalu.
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+
+
+#include "sc.h"
+/////////////////////////////////////////////////
+
+
+bool Kanal::zajmujeKanalJesli(Statek *wybrany){//!< Zajecie kanalu pod warunkiem wolnego kanalu i  wystaczajacego zanurzenia
+	if (glebokosc >= wybrany->zanurzenie && zajetosc == 0){ zajetosc = 1; return 1; }
+	else {  return 0; }
+		
+}
+
+void Kanal::zajecieKanalu(Statek *nowy){//!<  Zajecie kanalu
+	pierwszy = nowy;
+	zajetosc = 1;
+
+}
+
+void Kanal::zwolnienieKanalu(){//!< Zwolnienie kanalu
+	pierwszy = NULL;
+	zajetosc = 0;
+
+}

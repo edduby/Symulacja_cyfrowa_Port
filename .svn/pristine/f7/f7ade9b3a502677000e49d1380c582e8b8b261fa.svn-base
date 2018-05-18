@@ -1,0 +1,27 @@
+/********************************************//**
+* \file   rng.cpp
+* \brief  Definicja funkcji generuj¹cej zmienna losowa o rozkladzie rownomiernym.
+* \author Krzysztof Bakowski (krzysztof.bakowski@put.poznan.pl)
+* \date   2013-03-21
+***********************************************/
+#include "sc.h"
+#include <math.h>
+/////////////////////////////////////////////////
+static const int q = 127773;
+static const int r = 2836;
+static const int range = 2147483647; //2^31-1
+//-----------------------------------------------
+double Uniform(void)
+{
+	static int x = 3566;
+
+	int h = int(x / q);
+
+	x = 16807 * (x - q * h) - r * h;
+
+	if (x < 0) x += range;
+
+	return (long double)x / long double(range);
+}
+/////////////////////////////////////////////////
+//***********************************************

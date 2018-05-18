@@ -1,0 +1,16 @@
+#include "sc.h"
+#include "symulacja.h"
+
+int main()
+{
+	srand(time(NULL));
+	int a;
+	statek proba;
+	a= proba.losowanieStatku();
+	cout << a;
+
+	cin >> a;
+		
+
+
+}

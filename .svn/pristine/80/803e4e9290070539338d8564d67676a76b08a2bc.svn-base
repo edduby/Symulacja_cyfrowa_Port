@@ -1,0 +1,24 @@
+#ifndef STATEK_H
+#define STATEK_H
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+class Statek{
+
+public: 
+
+	string typ;
+	int masa;
+	int ppz; //prawdopodobienstwo ponownego zaladunku
+	int urzadzenia;
+
+
+
+
+private:
+
+};
+
+#endif 

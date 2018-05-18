@@ -1,0 +1,252 @@
+/********************************************//**
+* \file symulacja.cpp
+* \brief Definicja obiektu symulacja
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+
+#include "sc.h"
+#ifndef SIMULACJA_H
+#define SIMULACJA_H
+/////////////////////////////////////////////////
+/*! \brief Symulacja.
+*
+*	Implementacja Symulacji.
+*
+*/
+
+int czasGlobalny; 
+
+void Symulacja()
+{
+
+
+
+	//-------------------------------------------
+	// Generacja ziaren:
+	//-------------------------------------------
+
+int tool_seed[9];
+	
+
+int seed = 1234, idx = 0;
+
+	for (int i = 0; i < 4 * 10000; i++)
+	{
+		Uniform(seed);
+
+		if (!(i % 10000))
+		{
+			tool_seed[idx++] = seed;
+			std::cout << seed << endl;
+		}
+	}
+
+	Statek::tools_seed1 = tool_seed[7];
+	Statek::tools_seed2 = tool_seed[1];
+	Statek::tools_seed3 = tool_seed[2];
+	Statek::tools_seed4 = tool_seed[3];
+	Statek::tools_seed5 = tool_seed[4];
+	Statek::tools_seed6 = tool_seed[5];
+	Statek::tools_seed7 = tool_seed[6];
+	Statek::tools_seed8 = tool_seed[0];
+
+
+
+	double lambda_1 = 0.05789; //ok
+	//double lambda_1 = 0.02;
+
+	
+	int M = 10;
+
+	//-------------------------------------------
+	// Set statistics file(s):
+	//-------------------------------------------
+
+	ofstream model_stats;
+	ofstream srednia_od_lambdy;
+
+	model_stats.open("./output/model_stats.csv", std::ios_base::out | std::ios_base::trunc);
+
+	model_stats << "lambda_1" << ';' << "est_mu_st" << ';' << "delta" << '\n';
+
+	//-------------------------------------------
+
+
+	ConfidenceIntervalEstimator service_time;
+	for (double lambda_1 = 0.05; lambda_1 < 0.09; lambda_1 += 0.005)	{
+
+
+	service_time.reset();
+
+
+//for (int m = 10; m < M; m++)
+	//	{
+
+	
+			
+			//---------------------------------------
+			// Initialize model:
+			//---------------------------------------
+			symulacja::liczbaWszystkich = 0;
+			symulacja::sim_clock = 0.0;
+			symulacja::agenda.schedule(new pojawienieSieStatku(lambda_1, tool_seed[8]));
+			Event * current = NULL;
+
+			//---------------------------------------
+			// Transient phase:
+			//---------------------------------------
+
+			while (symulacja::liczbaWszystkich < 10000)
+			{
+				current = symulacja::agenda.remove_first();
+				symulacja::sim_clock = current->event_time;
+				current->execute();
+				delete current;
+			}
+
+
+			symulacja::steady_start = symulacja::sim_clock;
+
+		Statek::resetStatystyk();
+
+
+			//-----------------------------------
+			// Steady-state:
+			//-----------------------------------
+			while (symulacja::liczbaWszystkich < 10000)
+		{
+
+				current = symulacja::agenda.remove_first();
+
+				symulacja::sim_clock = current->event_time;
+				//cout << symulacja::sim_clock << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n";
+
+
+				current->execute();
+
+				delete current;
+			}
+
+			//-----------------------------------
+			// Process statistics:
+			//-----------------------------------
+			
+			
+
+
+			cout <<"lambda:"<< lambda_1<<endl;
+			symulacja::wynik = symulacja::czas / symulacja::i;
+			service_time.add_realization(symulacja::wynik);
+			cout << "Sredni czas przybycia wszystkich statkow:" << symulacja::wynik << "min" << endl;
+			cout << "Liczba statkow wyplywajacych z toru:" << symulacja::i << endl;
+			cout << "liczba wyplywajacych z sytemu:" << symulacja::liczbaWszystkich << endl;
+			//cout << "  typ:" << symulacja::typ1 << "  typ:" << symulacja::typ2 << "  typ:" << symulacja::typ3 << "  typ:" << symulacja::typ4 << "  typ:" << symulacja::typ5 << "  typ:" << symulacja::typ6 <<endl;
+			//cout << "  typ:" << symulacja::typ1t << "  typ:" << symulacja::typ2t << "  typ:" << symulacja::typ3t << "  typ:" << symulacja::typ4t << "  typ:" << symulacja::typ5t << "  typ:" << symulacja::typ6t << endl;
+			cout << "  Sredni czas 1 :" << symulacja::typ1t / symulacja::typ1 << endl << "  Sredni czas 2 :" << symulacja::typ2t / symulacja::typ2 << endl << "  Sredni czas 3 :" << symulacja::typ3t / symulacja::typ3 << endl << "   Sredni czas 4:" << symulacja::typ4t / symulacja::typ4 << endl << "   Sredni czas 5:" << symulacja::typ5t / symulacja::typ5 << endl << "   Sredni czas 6:" << symulacja::typ6t / symulacja::typ6 << endl;
+			cout << "statkow wyplywajacych jest:" << symulacja::statkiWyplywajace << endl;
+			cout << symulacja::KanalJeden1.czasZajetosci / symulacja::sim_clock << endl;
+			cout << symulacja::KanalDwa2.czasZajetosci / symulacja::sim_clock << endl;
+			cout << symulacja::KanalTrzy3.czasZajetosci / symulacja::sim_clock << endl;
+			cout << symulacja::KanalCztery4.czasZajetosci / symulacja::sim_clock << endl;
+			cout << "max czas oczekiwania:" << symulacja::maxCzasOczekiwania << endl;
+			cout << "dzwigi:" << symulacja::czasNarzedziDzwigi / (symulacja::sim_clock * 6) << endl;
+			cout << "jachty:" << symulacja::czasNarzedziMiejsceJachty / (symulacja::sim_clock * 55) << endl;
+			cout << "prowadnice:" << symulacja::czasNarzedziProwadnice / (symulacja::sim_clock * 8) << endl;
+			cout << "rampy:" << symulacja::czasNarzedziRampy / (symulacja::sim_clock * 10) << endl;
+			cout << "tasmociagi:" << symulacja::czasNarzedziTasmociagi / (symulacja::sim_clock * 4) << endl;
+
+			symulacja::statystyki_lambda.open("./statystyki_lambda.csv", std::ios_base::out | std::ios_base::app);
+			symulacja::statystyki_lambda << "Koniec:" <<lambda_1<< endl;
+			symulacja::statystyki_lambda.close();
+
+
+			srednia_od_lambdy.open("./statystyki_lambda_srednia.csv", std::ios_base::out | std::ios_base::app);
+			srednia_od_lambdy << "Lambda:" << lambda_1 << "Max:" << symulacja::maxCzasOczekiwania << endl;
+			srednia_od_lambdy.close();
+
+
+		Statek::resetStatystyk();
+		
+///////////////////////////////////////////////////////////kolejkiporty
+		
+		symulacja::NowyPort.reset();
+
+	
+
+
+		//symulacja::KanalJeden1.reset();
+		//symulacja::KanalDwa2.reset();
+		//symulacja::KanalTrzy3.reset();
+		//symulacja::KanalCztery4.reset();
+
+		Kanal KanalJ(8, 1);
+		Kanal KanalD(12, 2);
+		Kanal KanalT(20, 3);
+		Kanal KanalC(25, 4);
+
+
+		symulacja::KanalJeden1 = KanalJ;
+		symulacja::KanalDwa2 = KanalD;
+		symulacja::KanalTrzy3 = KanalT;
+		symulacja::KanalCztery4 = KanalC;
+
+
+
+
+
+		//Kolejka jj;
+		// Kolejka dd;
+		symulacja::qPort.reset();
+		symulacja::qMorze.reset();
+///////////////////////////////////////////////////////////
+
+
+
+
+	}
+
+
+		//---------------------------------------
+		// Save statistics:
+		//---------------------------------------
+	//	model_stats << lambda_1 << ';' << service_time.get_mu() << ';' << service_time.get_delta(ConfidenceIntervalEstimator::alpha0_005) << '\n';
+//	std::cout << "Mean service time:" << service_time.get_mu() << " +/- " << service_time.get_delta(ConfidenceIntervalEstimator::alpha0_005) << endl;
+		
+
+
+//	}
+	//model_stats.close();
+		system("pause");
+
+
+
+	
+}
+
+
+void usuniecieDanychZobiektów(){
+	Port Nowy;
+	 symulacja::NowyPort=Nowy;
+	 
+	 Kanal KanalJ(8, 1);
+	 Kanal KanalD(12, 2);
+	 Kanal KanalT(20, 3);
+	 Kanal KanalC(25, 4);
+
+
+	 symulacja::KanalJeden1=KanalJ;
+	 symulacja::KanalDwa2 = KanalD;
+	 symulacja::KanalTrzy3 = KanalT;
+	 symulacja::KanalCztery4 = KanalC;
+	  
+	// Kolejka jj;
+	// Kolejka dd;
+	
+
+
+}
+
+/////////////////////////////////////////////////
+//***********************************************
+#endif /*SYMULACJA_H*/  

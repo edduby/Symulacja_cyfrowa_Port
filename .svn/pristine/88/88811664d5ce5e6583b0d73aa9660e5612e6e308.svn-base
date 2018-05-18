@@ -1,0 +1,14 @@
+using namespace std;
+#ifndef SIMULACJA_H
+#define SIMULACJA_H
+
+int czasGlobalny; 
+
+void symulacja()
+{
+//miejsce symulacji
+
+}
+
+
+#endif 

@@ -1,0 +1,25 @@
+#ifndef PORT_H
+#define PORT_H
+#include <iostream>
+#include <cstdlib>
+#include "port.h"
+#include "statek.h"
+class port{
+
+public:
+	int miejsceJachty;
+	int dzwigi;
+	int tasmociagi;
+	int rampy;
+	int prowadnice;
+	void zajecieNarzedzi(statek wybrany);
+	
+
+private:
+
+
+
+};
+
+using namespace std;
+#endif

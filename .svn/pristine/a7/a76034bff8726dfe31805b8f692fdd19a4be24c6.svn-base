@@ -1,0 +1,23 @@
+/********************************************//**
+* \file port.cpp
+* \brief
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+
+#include "port.h"
+/////////////////////////////////////////////////
+
+void Port::zajecieNarzedzi(Statek wybrany){  //albo zrobie funkcje ktora sprawdza czy mozna pobrac narzedzia, albo zrobie to w tej
+
+	if (wybrany.typ == 1) { miejsceJachty = -1; }
+	else
+	{
+		rampy =  rampy - wybrany.wymaganeRampy;
+		 dzwigi = dzwigi- wybrany.wymaganeDzwigi - 1;
+		 tasmociagi = tasmociagi-wybrany.wymaganeTasmociagi - 1;
+		 prowadnice = prowadnice- wybrany.wymaganeProwadnice - 1;
+		 
+	}
+}
+

@@ -1,0 +1,34 @@
+#ifndef PORT_H
+#define PORT_H
+#include <iostream>
+/********************************************//**
+* \file port.h
+* \brief
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+
+#include <cstdlib>
+#include "port.h"
+#include "statek.h"
+
+/////////////////////////////////////////////////
+class Port{
+
+public:
+	int miejsceJachty;
+	int dzwigi;
+	int tasmociagi;
+	int rampy;
+	int prowadnice;
+	void zajecieNarzedzi(Statek wybrany);
+	
+
+private:
+
+
+
+};
+
+using namespace std;
+#endif

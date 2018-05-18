@@ -1,0 +1,179 @@
+/********************************************//**
+* \file symulacja.h
+* \brief Definicja obiektu symulacja
+* \author Maciej Maciejewski
+* \date   2015-04-23
+***********************************************/
+
+#include "sc.h"
+#ifndef SIMULACJA_H
+#define SIMULACJA_H
+/////////////////////////////////////////////////
+/*! \brief Symulacja.
+*
+*	Implementacja Symulacji.
+*
+*/
+
+int czasGlobalny; 
+//void sprawdzamDostepnoscZajmuje(Port pierwszy, Kanal wybrany){
+
+//	if (pierwszy.czyMogeWplynac || (wybrany.zajetosc == 0)){
+	//}
+	//else
+	//{
+	//}
+
+//}
+
+
+
+
+
+
+void Symulacja()
+{
+//miejsce symulacji
+	Kanal temp; // zmnienna pommocnicza
+
+	//>!Stworzenie portu
+
+	Port MojPort;
+	//cout << "port     " << MojPort.dzwigi << "port     ";
+
+
+
+	//! Sworzenie kanalow
+	Kanal KanalJeden(8);
+	Kanal KanalDwa(12);
+	Kanal KanalTrzy(20);
+	Kanal KanalCztery(25);
+
+	//! Stworzenie kolejek
+	Kolejka DoKanaluDoPortu;
+	Kolejka DoKanaluZPortu;
+
+	//! Stworzenie statku
+	Statek *pierwszy;
+	Zrodlo generacja;
+	pierwszy = generacja.generacjaStatku();
+	
+	//jezeli narzedzia sa zajete i kanal  to wedruje do kolejki
+	if ((pierwszy->czyMozeWplynac(KanalJeden, KanalDwa, KanalTrzy, KanalCztery) && MojPort.czyMogeWplynac(pierwszy))==0)
+	{
+		//umieszczam w kolejce
+		DoKanaluDoPortu.statekZajmujeMiejsce(pierwszy);
+
+	}
+
+	//usuwam z kolejki wkladam do toru jesli moge
+	if (DoKanaluDoPortu.czyPusta() != NULL){//sprawdzam czy kolejka jest pusta
+
+		Statek *tmp = DoKanaluDoPortu.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort); //funkcja zwraca wskaznik na NULL jezeli zaden ze statkow w kolejce nie moze wplynac do kanalu 
+		if (tmp != NULL)//jezeli jest statek ktory w kolejce nadaje sie do usuniecia usuwamy go z kolejki 
+		{
+			DoKanaluDoPortu.statekZwalniaMiejsce(tmp);
+
+			temp = pierwszy->wyborKanalu(KanalJeden, KanalDwa, KanalTrzy, KanalCztery);
+			temp.zajecieKanalu(pierwszy);
+			MojPort.zajecieNarzedzi(pierwszy);
+
+			//Po wplynieciu do portu zwalniam kanal
+			
+		}
+
+
+	}
+
+	else{
+		//wprowadzam do odpowiedniego kanalu i zajmuje narzedzia 
+		temp = pierwszy->wyborKanalu(KanalJeden, KanalDwa, KanalTrzy, KanalCztery);
+		temp.zajecieKanalu(pierwszy);
+		MojPort.zajecieNarzedzi(pierwszy);
+		
+	}
+	temp.zwolnienieKanalu();//zwalniamy kanal statku ktory zostal obslugiwany 
+
+	//obluga portu sprawdzammy ktore maja koniec obslugi 
+	//wprowadzam do kolejki "z portu do morza"
+
+	if (pierwszy->czyMozeWplynac(KanalJeden, KanalDwa, KanalTrzy, KanalCztery)){//wyplywanie z portu 
+		temp = pierwszy->wyborKanalu(KanalJeden, KanalDwa, KanalTrzy, KanalCztery);
+		temp.zajecieKanalu(pierwszy);
+		MojPort.zwolnienieNarzedzi(pierwszy);
+	
+	}
+	else
+	{
+		DoKanaluZPortu.statekZajmujeMiejsce(pierwszy);
+	}
+
+	if (DoKanaluZPortu.czyPusta() != NULL){//sprawdzam czy kolejka jest pusta
+
+		Statek *tmp = DoKanaluZPortu.wyborStatkuDoZwolnienia(KanalJeden, KanalDwa, KanalTrzy, KanalCztery, MojPort);
+		if (tmp != NULL)//jezeli jest statek ktory w kolejce nadaje sie do usuniecia usuwamy go z kolejki
+		{
+			DoKanaluZPortu.statekZwalniaMiejsce(tmp);
+
+			temp = pierwszy->wyborKanalu(KanalJeden, KanalDwa, KanalTrzy, KanalCztery);
+			temp.zajecieKanalu(pierwszy);
+			MojPort.zwolnienieNarzedzi(pierwszy);
+		}
+
+
+	}
+
+	cout << "Pierwszy statek zostaje przeprowadzony i usuniety";
+	//Zwalniamy kanal i usuwamy statek
+	//gdzie temp to bedzie kanal ktoremu skonczyla sie obsluga
+	temp.zwolnienieKanalu();
+	delete pierwszy;
+	 //po wplynieciu dio kanalau zwalniam zasoby 
+	//usuwam statek jak wyszedl z kanalu
+	
+
+
+
+
+	//usuwanie z kolejki i funkcje dzieki ktorej bede sprawdzal wolne zasoby i jesli sa wolne opuszczam kolejke zajmuuje kanal 
+	//1 stworzenie obiektow 
+	//-portu
+	//- kanalow
+	//- statkow
+
+	/*-Statek tworzymy okreslony statek
+	+ sprawdzamy czy sa wolne narzedzia
+	+ sprawdzamy czy sa wolne tory
+	- jezeli nie wrzucamy go do kolejki
+	- sprawdzamy czy zwolnilo sie miejsce
+	- jezeli jest wiecej statkow to jezeeli nie ma wystarczajaco duzo narzedzi sprawdzamy inne statki(wybieramy statek ktory->wsp masa i ...)
+	- jezeli moze sa narzedzial wplywamy i zajmujemu tor oraz narzedzia(tor ktory wybiuerzemy mamy wybrac jak najlepiej tzn.pod wzgledem masy i szybkosci kt)
+
+	- zostajemy obslugiwani
+	- sprawdzamy czy tory sa wolne zeby wrocic jezeli nie zajmujemy kolejke.
+
+
+
+	rozladowac , nalDOWAC PONOWNIE
+	*/
+	srand(time(NULL));
+	int ab=5;
+	Statek proba;
+	ab = proba.losowanieStatku();
+	cout << ab;
+	cout << "mamy cos:";
+	double ku = 3;
+		int ka = 40000;
+	cout << Uniform();
+	
+	system("pause");
+
+
+
+
+}
+
+
+/////////////////////////////////////////////////
+//***********************************************
+#endif /*SYMULACJA_H*/  
