@@ -1,10 +1,23 @@
-﻿Build started 2018-05-18 23:31:58.
-     1>Project "C:\Users\eddub\Documents\Visual Studio 2013\Projects\SC\r2_sk_mm\r2_sk_mm.vcxproj" on node 2 (Build target(s)).
+﻿Build started 2018-05-19 00:38:15.
+     1>Project "C:\Users\eddub\Documents\Visual Studio 2013\Projects\SC\Symulacja_cyfrowa_Port\r2_sk_mm\r2_sk_mm.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         D:\Pliki programów (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt src\kanal.cpp
+         D:\Pliki programów (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt src\confidence_interval_estimation.cpp src\events.cpp src\event_scheduling.cpp src\kanal.cpp src\kolejka.cpp src\port.cpp src\rng.cpp src\sc.cpp src\statek.cpp src\symulacja.cpp src\zrodlo.cpp
+         zrodlo.cpp
+         symulacja.cpp
+         statek.cpp
+         sc.cpp
+         rng.cpp
+         port.cpp
+         kolejka.cpp
          kanal.cpp
+         event_scheduling.cpp
+         events.cpp
+         confidence_interval_estimation.cpp
+         Generating Code...
+     1>c:\users\eddub\documents\visual studio 2013\projects\sc\symulacja_cyfrowa_port\r2_sk_mm\src\statek.cpp(102): warning C4715: 'Statek::wKtorymTorzeJestem': not all control paths return a value
+     1>c:\users\eddub\documents\visual studio 2013\projects\sc\symulacja_cyfrowa_port\r2_sk_mm\src\statek.cpp(115): warning C4715: 'Statek::losowanieStatku': not all control paths return a value
        Link:
-         D:\Pliki programów (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\eddub\Documents\Visual Studio 2013\Projects\SC\Debug\r2_sk_mm.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\eddub\Documents\Visual Studio 2013\Projects\SC\Debug\r2_sk_mm.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\eddub\Documents\Visual Studio 2013\Projects\SC\Debug\r2_sk_mm.lib" /MACHINE:X86 Debug\confidence_interval_estimation.obj
+         D:\Pliki programów (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\eddub\Documents\Visual Studio 2013\Projects\SC\Symulacja_cyfrowa_Port\Debug\r2_sk_mm.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\eddub\Documents\Visual Studio 2013\Projects\SC\Symulacja_cyfrowa_Port\Debug\r2_sk_mm.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\eddub\Documents\Visual Studio 2013\Projects\SC\Symulacja_cyfrowa_Port\Debug\r2_sk_mm.lib" /MACHINE:X86 Debug\confidence_interval_estimation.obj
          Debug\events.obj
          Debug\event_scheduling.obj
          Debug\kanal.obj
@@ -15,9 +28,9 @@
          Debug\statek.obj
          Debug\symulacja.obj
          Debug\zrodlo.obj
-         r2_sk_mm.vcxproj -> C:\Users\eddub\Documents\Visual Studio 2013\Projects\SC\Debug\r2_sk_mm.exe
-     1>Done Building Project "C:\Users\eddub\Documents\Visual Studio 2013\Projects\SC\r2_sk_mm\r2_sk_mm.vcxproj" (Build target(s)).
+         r2_sk_mm.vcxproj -> C:\Users\eddub\Documents\Visual Studio 2013\Projects\SC\Symulacja_cyfrowa_Port\Debug\r2_sk_mm.exe
+     1>Done Building Project "C:\Users\eddub\Documents\Visual Studio 2013\Projects\SC\Symulacja_cyfrowa_Port\r2_sk_mm\r2_sk_mm.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:03.46
+Time Elapsed 00:00:11.25
